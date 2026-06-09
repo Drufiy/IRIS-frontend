@@ -57,6 +57,11 @@
             <p class="hero-text">
               The desktop application should inherit the same quiet sci-fi language, but turn it into something more useful: conversation, action history, memory, settings, and live state all in one place across both Windows and macOS.
             </p>
+            <div class="platform-strip">
+              <span class="platform-chip">Windows-first foundation</span>
+              <span class="platform-chip">macOS parity target</span>
+              <span class="platform-chip">Shared interaction model</span>
+            </div>
           </div>
           <div class="page-hero-panel reveal">
             <div class="desktop-shell desktop-shell-expanded">
@@ -72,8 +77,135 @@
                 <div class="desktop-topline">Desktop UI system</div>
                 <h3>Conversation, execution, and system state in one operating surface.</h3>
                 <p>The desktop app should feel like a command center for IRIS rather than a floating chat box.</p>
+                <div class="desktop-scene">
+                  <div class="scene-strip">
+                    <span>Live voice session</span>
+                    <span>Approval gate armed</span>
+                    <span>Windows + macOS path</span>
+                  </div>
+                  <div class="scene-board">
+                    <article class="scene-card">
+                      <span class="scene-label">Conversation</span>
+                      <strong>Open Chrome, pull the frontend repo, and prep review notes.</strong>
+                      <p>IRIS keeps the task in one thread instead of scattering it across separate tools.</p>
+                    </article>
+                    <article class="scene-card">
+                      <span class="scene-label">Action queue</span>
+                      <ul class="scene-list">
+                        <li>Browser launch in progress</li>
+                        <li>Repo tab focused</li>
+                        <li>Reminder scheduled for 25 minutes</li>
+                      </ul>
+                    </article>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Workspace Preview</p>
+            <h2>A command center, not a decorated chat window.</h2>
+            <p>
+              The desktop product should make active work legible: what was asked, what IRIS is doing now, what it remembers, and where human control still matters.
+            </p>
+          </div>
+
+          <div class="workspace-board reveal">
+            <div class="workspace-column workspace-column-primary">
+              <span class="demo-card-kicker">Active Thread</span>
+              <div class="thread-block">
+                <div class="thread-row">
+                  <span class="thread-role">You</span>
+                  <p>Summarize the last frontend milestone, open the repo issue list, and remind me what still blocks desktop implementation.</p>
+                </div>
+                <div class="thread-row">
+                  <span class="thread-role">IRIS</span>
+                  <p>Reviewing repo state, routing browser actions, and preparing a compact milestone summary with the next blocker highlighted.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="workspace-column">
+              <span class="demo-card-kicker">Execution</span>
+              <div class="ledger-list">
+                <div class="ledger-item">
+                  <strong>Browser</strong>
+                  <span>Repo loaded and pinned</span>
+                </div>
+                <div class="ledger-item">
+                  <strong>Memory</strong>
+                  <span>Recent milestone context attached</span>
+                </div>
+                <div class="ledger-item">
+                  <strong>Approvals</strong>
+                  <span>None required for this flow</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="workspace-column">
+              <span class="demo-card-kicker">System Pulse</span>
+              <div class="pulse-stack">
+                <div class="pulse-card">
+                  <strong>Voice</strong>
+                  <span>Wake word active with spoken replies</span>
+                </div>
+                <div class="pulse-card">
+                  <strong>Providers</strong>
+                  <span>LLM, ASR, and TTS status should be readable without leaving the app</span>
+                </div>
+                <div class="pulse-card pulse-card-warn">
+                  <strong>Risk</strong>
+                  <span>Escalate only when a step meaningfully changes files, state, or permissions</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Experience Modes</p>
+            <h2>Three layers of desktop presence.</h2>
+            <p>
+              The IRIS app should not behave like a single monolithic screen. It should adapt to the user's level of attention and the task in motion.
+            </p>
+          </div>
+
+          <div class="modes-grid">
+            <article class="mode-card reveal">
+              <span class="demo-card-kicker">Ambient</span>
+              <h3>Overlay when you only need signal</h3>
+              <p>Keep IRIS light and peripheral when it is mostly listening, updating state, or waiting for the next command.</p>
+              <ul class="detail-list">
+                <li>Idle, listening, acting, approval states</li>
+                <li>Low-clutter border and toast language</li>
+                <li>Fast voice-first feedback loop</li>
+              </ul>
+            </article>
+            <article class="mode-card reveal">
+              <span class="demo-card-kicker">Focused</span>
+              <h3>Command center when work gets heavier</h3>
+              <p>Expand into a full workspace when the user needs to inspect memory, actions, files, or multi-step execution flow.</p>
+              <ul class="detail-list">
+                <li>Conversation and action timeline</li>
+                <li>Memory and reasoning surfaces</li>
+                <li>Provider settings and mode switching</li>
+              </ul>
+            </article>
+            <article class="mode-card reveal">
+              <span class="demo-card-kicker">Deliberate</span>
+              <h3>Approval surfaces when risk appears</h3>
+              <p>Escalate into explicit approval UI when the assistant is about to do something destructive or meaningfully consequential.</p>
+              <ul class="detail-list">
+                <li>Clear request summary</li>
+                <li>Human confirm or deny action</li>
+                <li>Visible consequences before execution</li>
+              </ul>
+            </article>
           </div>
         </section>
 
@@ -114,6 +246,65 @@
 
         <section class="section">
           <div class="section-heading reveal">
+            <p class="eyebrow">Operating Loop</p>
+            <h2>The desktop experience should support a full work cycle.</h2>
+            <p>
+              A strong IRIS desktop app is not just where responses appear. It is where requests become tracked work, where context accumulates, and where risky steps become explicit.
+            </p>
+          </div>
+
+          <div class="operator-grid">
+            <article class="operator-card reveal">
+              <span class="flow-index">01</span>
+              <h3>Capture intent fast</h3>
+              <p>Voice first when speed matters, text when precision matters, and both reflected back into the same session.</p>
+            </article>
+            <article class="operator-card reveal">
+              <span class="flow-index">02</span>
+              <h3>Show what is happening</h3>
+              <p>Users should be able to see active actions, execution history, and relevant context without opening logs or config files.</p>
+            </article>
+            <article class="operator-card reveal">
+              <span class="flow-index">03</span>
+              <h3>Hand control back cleanly</h3>
+              <p>Approvals, cancellation, editing, and reruns should all feel native to the workflow instead of bolted on afterward.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Platform Parity</p>
+            <h2>Shared core, native fit.</h2>
+            <p>
+              IRIS should feel like one product across platforms, but not like a rigid port that ignores how each desktop environment behaves.
+            </p>
+          </div>
+
+          <div class="parity-panel reveal">
+            <div class="parity-column">
+              <span class="demo-card-kicker">Shared Across Both</span>
+              <ul class="detail-list">
+                <li>State color system and motion language</li>
+                <li>Conversation, actions, memory, providers</li>
+                <li>Approval and safety interaction model</li>
+                <li>Voice-first workflow and execution timeline</li>
+              </ul>
+            </div>
+            <div class="parity-column">
+              <span class="demo-card-kicker">Adapt Per Platform</span>
+              <ul class="detail-list">
+                <li>Window chrome and native shell expectations</li>
+                <li>Platform-specific shortcuts and menu patterns</li>
+                <li>OS-tailored tray, dock, and background behavior</li>
+                <li>File system and automation edge cases</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
             <p class="eyebrow">UI Principles</p>
             <h2>Rules worth carrying from web to desktop.</h2>
           </div>
@@ -134,6 +325,21 @@
               <h3>Visible consequences</h3>
               <p>The app should always make it obvious what IRIS is about to do, what it already did, and when it is waiting on the user.</p>
             </article>
+          </div>
+
+          <div class="milestone-rail reveal">
+            <div class="rail-step is-complete">
+              <strong>Website</strong>
+              <span>Brand language and product surface</span>
+            </div>
+            <div class="rail-step is-active">
+              <strong>Desktop UX</strong>
+              <span>Shared Windows and macOS interaction model</span>
+            </div>
+            <div class="rail-step">
+              <strong>Native Implementation</strong>
+              <span>App surfaces, settings, memory, approvals</span>
+            </div>
           </div>
 
           <div class="page-links reveal">

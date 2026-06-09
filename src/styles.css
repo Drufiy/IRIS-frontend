@@ -386,7 +386,13 @@ h3 {
 .demo-card,
 .audience-card,
 .repo-card,
-.principle-card {
+.principle-card,
+.workspace-board,
+.workspace-column,
+.pulse-card,
+.command-panel,
+.command-note,
+.operator-card {
   background: var(--iris-panel);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--iris-shadow);
@@ -626,6 +632,25 @@ h3 {
   line-height: 1.7;
 }
 
+.platform-strip,
+.roadmap-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.platform-strip {
+  margin-top: 22px;
+}
+
+.platform-chip {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--iris-text-muted);
+}
+
 .page-hero {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
@@ -738,7 +763,10 @@ h3 {
 .audience-grid,
 .repo-grid,
 .detail-grid,
-.timeline-grid {
+.timeline-grid,
+.modes-grid,
+.command-columns,
+.operator-grid {
   display: grid;
   gap: 16px;
 }
@@ -761,7 +789,10 @@ h3 {
 
 .detail-card,
 .timeline-card,
-.matrix-card {
+.matrix-card,
+.mode-card,
+.parity-panel,
+.milestone-rail {
   background: var(--iris-panel);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--iris-shadow);
@@ -769,13 +800,19 @@ h3 {
 }
 
 .detail-card,
-.timeline-card {
+.timeline-card,
+.mode-card,
+.command-column,
+.operator-card {
   border-radius: 28px;
   padding: 24px;
 }
 
 .detail-card p,
-.timeline-card p {
+.timeline-card p,
+.mode-card p,
+.command-column p,
+.operator-card p {
   margin: 14px 0 0;
   color: var(--iris-text-muted);
   line-height: 1.7;
@@ -793,11 +830,107 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.modes-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .page-links {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
   margin-top: 22px;
+}
+
+.roadmap-strip {
+  margin-top: 24px;
+  align-items: center;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.roadmap-strip strong {
+  color: var(--iris-text);
+  font-family: "Sora", sans-serif;
+}
+
+.roadmap-strip span {
+  color: var(--iris-text-muted);
+  line-height: 1.6;
+}
+
+.roadmap-strip a {
+  color: var(--iris-text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.section-command {
+  position: relative;
+}
+
+.command-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.command-panel,
+.workspace-board {
+  border-radius: 30px;
+  padding: 22px;
+}
+
+.command-panel-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.command-panel-bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.command-columns {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.command-column,
+.workspace-column,
+.pulse-card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.command-column strong,
+.command-note h3,
+.workspace-column strong,
+.pulse-card strong,
+.thread-role,
+.scene-card strong {
+  color: var(--iris-text);
+  font-family: "Sora", sans-serif;
+}
+
+.command-notes {
+  display: grid;
+  gap: 16px;
+}
+
+.command-note {
+  border-radius: 28px;
+  padding: 24px;
+}
+
+.command-note p {
+  margin: 14px 0 0;
+  color: var(--iris-text-muted);
+  line-height: 1.7;
 }
 
 .capability-grid,
@@ -1000,6 +1133,125 @@ h3 {
   color: var(--iris-text-muted);
 }
 
+.desktop-scene {
+  display: grid;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.scene-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.scene-strip span,
+.scene-label {
+  color: var(--iris-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.scene-strip span {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.scene-board {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.scene-card {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.scene-card p {
+  margin: 0;
+  color: var(--iris-text-muted);
+  line-height: 1.6;
+}
+
+.scene-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--iris-text-muted);
+  display: grid;
+  gap: 8px;
+}
+
+.workspace-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(240px, 0.8fr));
+  gap: 14px;
+}
+
+.workspace-column {
+  border-radius: 24px;
+  padding: 22px;
+}
+
+.workspace-column-primary {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent),
+    radial-gradient(circle at top right, var(--iris-accent-soft), transparent 42%);
+}
+
+.thread-block,
+.pulse-stack,
+.ledger-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.thread-row,
+.ledger-item,
+.pulse-card {
+  padding: 16px;
+  border-radius: 18px;
+}
+
+.thread-row {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.thread-role {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.thread-row p,
+.ledger-item span,
+.pulse-card span {
+  margin: 0;
+  color: var(--iris-text-muted);
+  line-height: 1.65;
+}
+
+.ledger-item,
+.pulse-card {
+  display: grid;
+  gap: 6px;
+}
+
+.pulse-card-warn {
+  border-color: rgba(255, 138, 99, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 138, 99, 0.06);
+}
+
 .open-source-card {
   border-radius: 32px;
   padding: 42px;
@@ -1050,7 +1302,10 @@ h3 {
 .demo-card:hover,
 .detail-card:hover,
 .timeline-card:hover,
-.principle-card:hover {
+.principle-card:hover,
+.mode-card:hover,
+.command-note:hover,
+.operator-card:hover {
   transform: translateY(-4px);
   border-color: rgba(255, 255, 255, 0.16);
   background: rgba(20, 26, 36, 0.86);
@@ -1088,6 +1343,71 @@ h3 {
 
 .desktop-shell-expanded {
   min-height: 420px;
+}
+
+.parity-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.parity-column {
+  padding: 28px;
+}
+
+.parity-column + .parity-column {
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.operator-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.operator-card {
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background 220ms ease;
+}
+
+.milestone-rail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  padding: 18px;
+  border-radius: 28px;
+  margin-top: 24px;
+}
+
+.rail-step {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.rail-step strong {
+  color: var(--iris-text);
+  font-family: "Sora", sans-serif;
+}
+
+.rail-step span {
+  color: var(--iris-text-muted);
+  line-height: 1.6;
+}
+
+.rail-step.is-complete {
+  border-color: rgba(56, 210, 125, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(56, 210, 125, 0.08);
+}
+
+.rail-step.is-active {
+  border-color: rgba(86, 168, 255, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(86, 168, 255, 0.08);
 }
 
 .reveal {
@@ -1129,7 +1449,8 @@ h3 {
   .demo-layout,
   .page-hero,
   .state-panel,
-  .desktop-shell {
+  .desktop-shell,
+  .command-layout {
     grid-template-columns: 1fr;
   }
 
@@ -1144,8 +1465,26 @@ h3 {
   .repo-grid,
   .detail-grid,
   .timeline-grid,
-  .principles-grid {
+  .principles-grid,
+  .modes-grid,
+  .milestone-rail,
+  .command-columns,
+  .operator-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .workspace-board,
+  .scene-board {
+    grid-template-columns: 1fr;
+  }
+
+  .parity-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .parity-column + .parity-column {
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .signal-frame {
@@ -1197,7 +1536,12 @@ h3 {
   .repo-grid,
   .detail-grid,
   .timeline-grid,
-  .principles-grid {
+  .principles-grid,
+  .modes-grid,
+  .milestone-rail,
+  .command-columns,
+  .operator-grid,
+  .workspace-board {
     grid-template-columns: 1fr;
   }
 
@@ -1214,7 +1558,10 @@ h3 {
   .demo-card,
   .audience-card,
   .detail-card,
-  .timeline-card {
+  .timeline-card,
+  .command-note,
+  .operator-card,
+  .workspace-column {
     padding: 22px;
   }
 
