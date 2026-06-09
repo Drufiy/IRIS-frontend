@@ -20,9 +20,28 @@ const states = [
 
 const stateText = document.querySelector("[data-state-text]");
 const stateStatus = document.querySelector("[data-state-status]");
+const commandLabel = document.querySelector("[data-command-label]");
+const commandText = document.querySelector("[data-command-text]");
 const shell = document.querySelector(".site-shell");
 
 let currentState = 0;
+
+const commands = [
+  {
+    label: "route",
+    text: "deepseek routing active",
+  },
+  {
+    label: "action",
+    text: "launching browser and loading repo",
+  },
+  {
+    label: "memory",
+    text: "saving context for next interaction",
+  },
+];
+
+let currentCommand = 0;
 
 function applySignalState(index) {
   const next = states[index];
@@ -37,9 +56,22 @@ function applySignalState(index) {
 
 applySignalState(currentState);
 
+function applyCommand(index) {
+  const next = commands[index];
+  if (!commandLabel || !commandText) return;
+
+  commandLabel.textContent = next.label;
+  commandText.textContent = next.text;
+}
+
+applyCommand(currentCommand);
+
 window.setInterval(() => {
   currentState = (currentState + 1) % states.length;
   applySignalState(currentState);
+
+  currentCommand = (currentCommand + 1) % commands.length;
+  applyCommand(currentCommand);
 }, 2400);
 
 const revealNodes = [...document.querySelectorAll(".reveal")];

@@ -31,6 +31,7 @@
 
         <nav class="nav">
           <a href="#capabilities">Capabilities</a>
+          <a href="#demo">Demo</a>
           <a href="#flow">How It Works</a>
           <a href="#safety">Safety</a>
           <a href="#desktop">Desktop</a>
@@ -47,16 +48,31 @@
             <p class="eyebrow">Voice-First AI Assistant For Windows</p>
             <h1>Your computer should respond like an assistant.</h1>
             <p class="hero-text">
-              IRIS listens, reasons, remembers, and executes real actions across your desktop with visible state, safety gates, and a minimal interface.
+              IRIS listens, reasons, remembers, and executes real actions across your Windows desktop with visible state, safety gates, and a minimal interface built for real workflows.
             </p>
 
             <div class="hero-actions">
               <a class="button button-primary" href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">
                 View Backend
               </a>
-              <a class="button button-secondary" href="#flow">
-                Watch the Flow
+              <a class="button button-secondary" href="https://github.com/Drufiy/IRIS-frontend" target="_blank" rel="noreferrer">
+                View Frontend
               </a>
+            </div>
+
+            <div class="hero-proof">
+              <div class="proof-chip">
+                <strong>25+</strong>
+                <span>desktop and workflow actions</span>
+              </div>
+              <div class="proof-chip">
+                <strong>Groq + ElevenLabs</strong>
+                <span>speech in and speech out</span>
+              </div>
+              <div class="proof-chip">
+                <strong>Tauri Overlay</strong>
+                <span>live system-state feedback</span>
+              </div>
             </div>
 
             <ul class="summary-strip">
@@ -87,14 +103,70 @@
                   <span class="console-v">iris</span>
                 </div>
                 <div class="console-line">
-                  <span class="console-k">route</span>
-                  <span class="console-v">deepseek routing active</span>
+                  <span class="console-k" data-command-label>route</span>
+                  <span class="console-v" data-command-text>deepseek routing active</span>
                 </div>
                 <div class="console-line">
                   <span class="console-k">status</span>
                   <span class="console-v" data-state-status>processing request</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="demo" class="section section-demo">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Demo Surface</p>
+            <h2>See the kind of work IRIS is built to handle.</h2>
+            <p>
+              This is not positioned as another prompt box. IRIS is designed for fast, voice-first operating flows across files, browser tasks, reminders, and system control.
+            </p>
+          </div>
+
+          <div class="demo-layout">
+            <article class="demo-terminal reveal">
+              <div class="demo-terminal-bar">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div class="demo-lines">
+                <div class="demo-line">
+                  <span class="demo-prompt">you</span>
+                  <p>"IRIS, open Chrome and pull up the Drufiy frontend repo."</p>
+                </div>
+                <div class="demo-line">
+                  <span class="demo-prompt">iris</span>
+                  <p>Launching browser, finding the repo, and keeping the system in an interactive state.</p>
+                </div>
+                <div class="demo-line">
+                  <span class="demo-prompt">you</span>
+                  <p>"Now remind me in 25 minutes to review the desktop UI milestone."</p>
+                </div>
+                <div class="demo-line">
+                  <span class="demo-prompt">iris</span>
+                  <p>Reminder created. Memory updated. Awaiting the next task.</p>
+                </div>
+              </div>
+            </article>
+
+            <div class="demo-stack">
+              <article class="demo-card reveal">
+                <span class="demo-card-kicker">Speech Loop</span>
+                <h3>Wake word to speech response</h3>
+                <p>Groq Whisper transcribes the request, IRIS routes it, and ElevenLabs returns spoken feedback without breaking the interaction loop.</p>
+              </article>
+              <article class="demo-card reveal">
+                <span class="demo-card-kicker">Execution Layer</span>
+                <h3>Acts across desktop and browser</h3>
+                <p>Apps, files, browser automation, reminders, and system actions all sit inside the same execution model instead of separate tools.</p>
+              </article>
+              <article class="demo-card reveal">
+                <span class="demo-card-kicker">State Signal</span>
+                <h3>Visible before it becomes risky</h3>
+                <p>Listening, acting, approvals, and completion are reflected back through the overlay language so the system never feels opaque.</p>
+              </article>
             </div>
           </div>
         </section>
@@ -132,6 +204,28 @@
             <article class="capability-card reveal">
               <h3>Local or Remote</h3>
               <p>IRIS supports both direct local API configuration and a shared remote backend mode, depending on how you want to run it.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section section-audience">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Built For</p>
+            <h2>People who want computers to feel more responsive, not more complicated.</h2>
+          </div>
+
+          <div class="audience-grid">
+            <article class="audience-card reveal">
+              <h3>Builders</h3>
+              <p>Use IRIS to move through repos, browser tasks, files, and coding workflows without constantly context-switching by hand.</p>
+            </article>
+            <article class="audience-card reveal">
+              <h3>Operators</h3>
+              <p>Turn reminders, communication, lookups, and repetitive desktop steps into a fast voice-driven loop.</p>
+            </article>
+            <article class="audience-card reveal">
+              <h3>Early Adopters</h3>
+              <p>Run a system-level assistant that shows its state, respects approvals, and is grounded in an open-source architecture.</p>
             </article>
           </div>
         </section>
@@ -286,6 +380,16 @@
             <p>
               IRIS already has a live backend with DeepSeek routing, Groq Whisper ASR, ElevenLabs TTS, memory, browser automation, safety gates, and a Tauri overlay. This frontend is the public-facing layer of that system.
             </p>
+            <div class="repo-grid">
+              <a class="repo-card" href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">
+                <span class="repo-label">Backend</span>
+                <strong>Python runtime, agents, memory, speech, action routing</strong>
+              </a>
+              <a class="repo-card" href="https://github.com/Drufiy/IRIS-frontend" target="_blank" rel="noreferrer">
+                <span class="repo-label">Frontend</span>
+                <strong>Website identity, motion system, future desktop visual language</strong>
+              </a>
+            </div>
             <div class="hero-actions">
               <a class="button button-primary" href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">
                 Explore Backend

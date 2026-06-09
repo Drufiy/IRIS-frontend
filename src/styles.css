@@ -308,6 +308,43 @@ h3 {
   margin-top: 28px;
 }
 
+.hero-proof {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.proof-chip,
+.demo-terminal,
+.demo-card,
+.audience-card,
+.repo-card {
+  background: var(--iris-panel);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--iris-shadow);
+  backdrop-filter: blur(24px);
+}
+
+.proof-chip {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  border-radius: 22px;
+}
+
+.proof-chip strong {
+  font-family: "Sora", sans-serif;
+  font-size: 0.96rem;
+  color: var(--iris-text);
+}
+
+.proof-chip span {
+  color: var(--iris-text-muted);
+  line-height: 1.5;
+  font-size: 0.94rem;
+}
+
 .summary-strip {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -501,11 +538,99 @@ h3 {
   margin: 14px 0 0;
 }
 
+.section-demo {
+  position: relative;
+}
+
+.demo-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+.demo-terminal,
+.demo-card,
+.audience-card,
+.repo-card {
+  border-radius: 28px;
+}
+
+.demo-terminal {
+  padding: 20px;
+}
+
+.demo-terminal-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.demo-terminal-bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.demo-lines {
+  display: grid;
+  gap: 16px;
+}
+
+.demo-line {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.demo-line p {
+  margin: 0;
+  color: var(--iris-text);
+  line-height: 1.65;
+}
+
+.demo-prompt,
+.demo-card-kicker,
+.repo-label {
+  color: var(--iris-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.demo-stack,
+.audience-grid,
+.repo-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.demo-card,
+.audience-card {
+  padding: 22px;
+}
+
+.demo-card p,
+.audience-card p {
+  margin: 14px 0 0;
+  color: var(--iris-text-muted);
+  line-height: 1.7;
+}
+
 .capability-grid,
 .safety-layout {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+}
+
+.audience-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .capability-card,
@@ -706,6 +831,35 @@ h3 {
   max-width: 64ch;
 }
 
+.repo-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 26px;
+}
+
+.repo-card {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background 220ms ease;
+}
+
+.repo-card strong {
+  color: var(--iris-text);
+  line-height: 1.55;
+}
+
+.repo-card:hover,
+.repo-card:focus-visible,
+.audience-card:hover,
+.demo-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(20, 26, 36, 0.86);
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(22px);
@@ -742,6 +896,7 @@ h3 {
 
 @media (max-width: 1120px) {
   .hero,
+  .demo-layout,
   .state-panel,
   .desktop-shell {
     grid-template-columns: 1fr;
@@ -752,7 +907,10 @@ h3 {
   }
 
   .capability-grid,
-  .safety-layout {
+  .safety-layout,
+  .audience-grid,
+  .hero-proof,
+  .repo-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -793,13 +951,19 @@ h3 {
   .capability-grid,
   .safety-layout,
   .desktop-metrics,
-  .flow-grid {
+  .flow-grid,
+  .hero-proof,
+  .audience-grid,
+  .repo-grid {
     grid-template-columns: 1fr;
   }
 
   .signal-frame,
   .open-source-card,
-  .state-panel {
+  .state-panel,
+  .demo-terminal,
+  .demo-card,
+  .audience-card {
     padding: 22px;
   }
 
