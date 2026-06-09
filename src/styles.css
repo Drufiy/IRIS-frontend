@@ -933,6 +933,65 @@ h3 {
   line-height: 1.7;
 }
 
+.faq-stack,
+.release-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.faq-item,
+.release-item,
+.waitlist-shell {
+  background: var(--iris-panel);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--iris-shadow);
+  backdrop-filter: blur(24px);
+}
+
+.faq-item,
+.release-item {
+  border-radius: 28px;
+  padding: 24px;
+}
+
+.faq-item p,
+.release-item p {
+  margin: 14px 0 0;
+  color: var(--iris-text-muted);
+  line-height: 1.7;
+  max-width: 70ch;
+}
+
+.waitlist-shell {
+  display: grid;
+  gap: 14px;
+  border-radius: 30px;
+  padding: 24px;
+}
+
+.waitlist-field {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.waitlist-field span {
+  color: var(--iris-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.waitlist-field strong {
+  color: var(--iris-text);
+  line-height: 1.6;
+  font-family: "Sora", sans-serif;
+}
+
 .capability-grid,
 .safety-layout {
   display: grid;
@@ -1305,7 +1364,9 @@ h3 {
 .principle-card:hover,
 .mode-card:hover,
 .command-note:hover,
-.operator-card:hover {
+.operator-card:hover,
+.faq-item:hover,
+.release-item:hover {
   transform: translateY(-4px);
   border-color: rgba(255, 255, 255, 0.16);
   background: rgba(20, 26, 36, 0.86);
@@ -1561,7 +1622,10 @@ h3 {
   .timeline-card,
   .command-note,
   .operator-card,
-  .workspace-column {
+  .workspace-column,
+  .faq-item,
+  .release-item,
+  .waitlist-shell {
     padding: 22px;
   }
 

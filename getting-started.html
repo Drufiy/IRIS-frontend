@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IRIS Getting Started | Voice-First AI Assistant</title>
+    <meta
+      name="description"
+      content="Get started with IRIS through the open-source repos, current provider setup, and the path toward the full desktop application."
+    />
+    <meta name="theme-color" content="#07090d" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module">
+      import "./src/styles.css";
+      import "./src/site.js";
+    </script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <div class="ambient ambient-a"></div>
+      <div class="ambient ambient-b"></div>
+      <div class="noise"></div>
+
+      <div class="announcement-bar">
+        <span class="announcement-pill">Docs</span>
+        <p>This is the current getting-started layer for IRIS while the packaged desktop experience is still being built.</p>
+      </div>
+
+      <header class="topbar">
+        <a class="brand" href="/index.html" aria-label="IRIS home">
+          <span class="brand-mark"></span>
+          <span class="brand-word">IRIS</span>
+        </a>
+
+        <nav class="nav">
+          <a href="/index.html">Home</a>
+          <a href="/capabilities.html">Capabilities</a>
+          <a href="/safety.html">Safety</a>
+          <a href="/desktop.html">Desktop</a>
+          <a href="/getting-started.html">Docs</a>
+          <a href="/download.html">Download</a>
+        </nav>
+
+        <a class="button button-ghost" href="/waitlist.html">Waitlist</a>
+      </header>
+
+      <main>
+        <section class="section page-hero">
+          <div class="page-hero-copy reveal">
+            <p class="eyebrow">Getting Started</p>
+            <h1>Start with the repos now, then graduate into the app.</h1>
+            <p class="hero-text">
+              IRIS already has a live backend direction and a growing frontend system. The current on-ramp is source-first: clone the repos, configure providers, and follow the evolving desktop path as the app shell comes online.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">
+                Backend repo
+              </a>
+              <a class="button button-secondary" href="https://github.com/Drufiy/IRIS-frontend" target="_blank" rel="noreferrer">
+                Frontend repo
+              </a>
+            </div>
+          </div>
+          <div class="page-hero-panel reveal">
+            <div class="signal-frame compact-frame">
+              <div class="stat-list">
+                <div class="stat-row">
+                  <strong>Step 1</strong>
+                  <span>Clone the repos and install dependencies</span>
+                </div>
+                <div class="stat-row">
+                  <strong>Step 2</strong>
+                  <span>Configure provider keys and local settings</span>
+                </div>
+                <div class="stat-row">
+                  <strong>Step 3</strong>
+                  <span>Run the current backend and follow desktop progress</span>
+                </div>
+                <div class="stat-row">
+                  <strong>Next</strong>
+                  <span>Move into the actual desktop app shell as it ships</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Setup Flow</p>
+            <h2>The current IRIS path in plain terms.</h2>
+          </div>
+
+          <div class="operator-grid">
+            <article class="operator-card reveal">
+              <span class="flow-index">01</span>
+              <h3>Get the code</h3>
+              <p>Pull the backend repo for the runtime and the frontend repo for the website and future desktop-facing design system.</p>
+            </article>
+            <article class="operator-card reveal">
+              <span class="flow-index">02</span>
+              <h3>Set provider keys</h3>
+              <p>Configure the current speech and model providers so IRIS can listen, reason, and speak back correctly.</p>
+            </article>
+            <article class="operator-card reveal">
+              <span class="flow-index">03</span>
+              <h3>Follow desktop rollout</h3>
+              <p>Use the site, changelog, and waitlist to track when the cross-platform desktop app shell starts replacing the source-only path.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">What You Need</p>
+            <h2>Current prerequisites.</h2>
+          </div>
+
+          <div class="matrix-card reveal">
+            <div class="matrix-row matrix-head">
+              <span>Area</span>
+              <span>Current Need</span>
+              <span>Why it matters</span>
+            </div>
+            <div class="matrix-row">
+              <span>Backend</span>
+              <span>Python runtime and repo setup</span>
+              <span>Runs the agent, memory, speech, and execution logic</span>
+            </div>
+            <div class="matrix-row">
+              <span>Frontend</span>
+              <span>Node toolchain for the current site</span>
+              <span>Supports the website and the future desktop UI system</span>
+            </div>
+            <div class="matrix-row">
+              <span>Providers</span>
+              <span>Configured keys for current services</span>
+              <span>Enables the live speech and model loop</span>
+            </div>
+            <div class="matrix-row">
+              <span>Platform</span>
+              <span>Windows today, macOS planning next</span>
+              <span>The backend reality is Windows-first while the desktop app is being shaped for both</span>
+            </div>
+          </div>
+
+          <div class="page-links reveal">
+            <a class="button button-secondary" href="/download.html">View release path</a>
+            <a class="button button-secondary" href="/faq.html">Read common questions</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-copy">
+          <span class="brand">
+            <span class="brand-mark"></span>
+            <span class="brand-word">IRIS</span>
+          </span>
+          <p>Voice-first AI operating layer for real desktop workflows.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="/index.html">Home</a>
+          <a href="/download.html">Download</a>
+          <a href="/faq.html">FAQ</a>
+          <a href="/changelog.html">Changelog</a>
+          <a href="/waitlist.html">Waitlist</a>
+          <a href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">Backend</a>
+          <a href="https://github.com/Drufiy/IRIS-frontend" target="_blank" rel="noreferrer">Frontend</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

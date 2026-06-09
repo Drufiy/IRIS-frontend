@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IRIS Download | Voice-First AI Assistant</title>
+    <meta
+      name="description"
+      content="See how IRIS will ship across Windows and macOS, with source access now and packaged desktop releases planned next."
+    />
+    <meta name="theme-color" content="#07090d" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module">
+      import "./src/styles.css";
+      import "./src/site.js";
+    </script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <div class="ambient ambient-a"></div>
+      <div class="ambient ambient-b"></div>
+      <div class="noise"></div>
+
+      <div class="announcement-bar">
+        <span class="announcement-pill">Download</span>
+        <p>IRIS is open source today through the repos, with packaged Windows and macOS desktop releases planned as the app shell lands.</p>
+      </div>
+
+      <header class="topbar">
+        <a class="brand" href="/index.html" aria-label="IRIS home">
+          <span class="brand-mark"></span>
+          <span class="brand-word">IRIS</span>
+        </a>
+
+        <nav class="nav">
+          <a href="/index.html">Home</a>
+          <a href="/capabilities.html">Capabilities</a>
+          <a href="/safety.html">Safety</a>
+          <a href="/desktop.html">Desktop</a>
+          <a href="/getting-started.html">Docs</a>
+          <a href="/download.html">Download</a>
+        </nav>
+
+        <a class="button button-ghost" href="/waitlist.html">Waitlist</a>
+      </header>
+
+      <main>
+        <section class="section page-hero">
+          <div class="page-hero-copy reveal">
+            <p class="eyebrow">Download</p>
+            <h1>Open-source access now. Desktop releases next.</h1>
+            <p class="hero-text">
+              IRIS can be explored today through the backend and frontend repos. The upcoming desktop application will ship as one shared product across Windows and macOS, with source installs first and packaged builds after the app shell is stable.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">
+                View backend repo
+              </a>
+              <a class="button button-secondary" href="/getting-started.html">
+                Source install guide
+              </a>
+            </div>
+          </div>
+          <div class="page-hero-panel reveal">
+            <div class="signal-frame compact-frame">
+              <div class="stat-list">
+                <div class="stat-row">
+                  <strong>Current access</strong>
+                  <span>Source-based setup through GitHub</span>
+                </div>
+                <div class="stat-row">
+                  <strong>Windows</strong>
+                  <span>First packaged target once desktop shell stabilizes</span>
+                </div>
+                <div class="stat-row">
+                  <strong>macOS</strong>
+                  <span>Parity target under the same product language</span>
+                </div>
+                <div class="stat-row">
+                  <strong>Release path</strong>
+                  <span>Waitlist, source builds, then signed desktop installers</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Release Channels</p>
+            <h2>Three ways people will get into IRIS.</h2>
+          </div>
+
+          <div class="detail-grid">
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Source</span>
+              <h3>Available now for builders</h3>
+              <p>Use the repos directly if you want the earliest access and do not mind configuration work while the product surface continues to mature.</p>
+              <ul class="detail-list">
+                <li>Backend and frontend repos</li>
+                <li>Best for contributors and early testers</li>
+                <li>Fastest route to experimenting today</li>
+              </ul>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Preview Builds</span>
+              <h3>Desktop app previews next</h3>
+              <p>When the app shell is ready, preview desktop builds should land first for people who want the real UI before the full launch layer is done.</p>
+              <ul class="detail-list">
+                <li>Tauri desktop previews</li>
+                <li>Windows first, macOS alongside parity work</li>
+                <li>Feedback loop through waitlist and issues</li>
+              </ul>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Launch Builds</span>
+              <h3>Polished installers later</h3>
+              <p>The long-term goal is signed, clean installers with clearer onboarding, provider setup, and update paths for both operating systems.</p>
+              <ul class="detail-list">
+                <li>Signed installers</li>
+                <li>Smoother onboarding UX</li>
+                <li>Cross-platform release rhythm</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Platform Targets</p>
+            <h2>One product, adapted to two desktops.</h2>
+          </div>
+
+          <div class="parity-panel reveal">
+            <div class="parity-column">
+              <span class="demo-card-kicker">Windows</span>
+              <ul class="detail-list">
+                <li>Primary current backend reality</li>
+                <li>Shell, file, browser, and voice flows already mapped here</li>
+                <li>Likely first packaged desktop target</li>
+              </ul>
+            </div>
+            <div class="parity-column">
+              <span class="demo-card-kicker">macOS</span>
+              <ul class="detail-list">
+                <li>Planned under the same Tauri app shell</li>
+                <li>Needs native shortcut, tray, and automation adjustments</li>
+                <li>Targeted for parity, not a disconnected product fork</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="page-links reveal">
+            <a class="button button-secondary" href="/waitlist.html">Join waitlist</a>
+            <a class="button button-secondary" href="/desktop.html">Review desktop direction</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-copy">
+          <span class="brand">
+            <span class="brand-mark"></span>
+            <span class="brand-word">IRIS</span>
+          </span>
+          <p>Voice-first AI operating layer for real desktop workflows.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="/index.html">Home</a>
+          <a href="/getting-started.html">Docs</a>
+          <a href="/faq.html">FAQ</a>
+          <a href="/changelog.html">Changelog</a>
+          <a href="/waitlist.html">Waitlist</a>
+          <a href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">Backend</a>
+          <a href="https://github.com/Drufiy/IRIS-frontend" target="_blank" rel="noreferrer">Frontend</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

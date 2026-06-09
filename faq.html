@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IRIS FAQ | Voice-First AI Assistant</title>
+    <meta
+      name="description"
+      content="Answers to common questions about IRIS, its current open-source state, desktop plans, providers, and cross-platform direction."
+    />
+    <meta name="theme-color" content="#07090d" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module">
+      import "./src/styles.css";
+      import "./src/site.js";
+    </script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <div class="ambient ambient-a"></div>
+      <div class="ambient ambient-b"></div>
+      <div class="noise"></div>
+
+      <div class="announcement-bar">
+        <span class="announcement-pill">FAQ</span>
+        <p>The most common IRIS questions right now are about release status, desktop packaging, and how much of the system is already real.</p>
+      </div>
+
+      <header class="topbar">
+        <a class="brand" href="/index.html" aria-label="IRIS home">
+          <span class="brand-mark"></span>
+          <span class="brand-word">IRIS</span>
+        </a>
+
+        <nav class="nav">
+          <a href="/index.html">Home</a>
+          <a href="/capabilities.html">Capabilities</a>
+          <a href="/safety.html">Safety</a>
+          <a href="/desktop.html">Desktop</a>
+          <a href="/getting-started.html">Docs</a>
+          <a href="/download.html">Download</a>
+        </nav>
+
+        <a class="button button-ghost" href="/waitlist.html">Waitlist</a>
+      </header>
+
+      <main>
+        <section class="section page-hero">
+          <div class="page-hero-copy reveal">
+            <p class="eyebrow">FAQ</p>
+            <h1>Answers before the full desktop launch.</h1>
+            <p class="hero-text">
+              IRIS already has real backend systems, but the product surface is still evolving. This page keeps the story honest while the desktop application is being built.
+            </p>
+          </div>
+          <div class="page-hero-panel reveal">
+            <div class="signal-frame compact-frame">
+              <div class="state-list">
+                <div class="state-row">
+                  <span class="state-dot acting"></span>
+                  <div>
+                    <strong>Real backend</strong>
+                    <p>Speech, memory, actions, and routing are already part of the project.</p>
+                  </div>
+                </div>
+                <div class="state-row">
+                  <span class="state-dot listening"></span>
+                  <div>
+                    <strong>Website done first</strong>
+                    <p>The product story and visual language are being finished before the desktop shell.</p>
+                  </div>
+                </div>
+                <div class="state-row">
+                  <span class="state-dot caution"></span>
+                  <div>
+                    <strong>Desktop next</strong>
+                    <p>The actual Windows and macOS app implementation is the next major build phase.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Common Questions</p>
+            <h2>The short version.</h2>
+          </div>
+
+          <div class="faq-stack">
+            <article class="faq-item reveal">
+              <h3>Is IRIS already a working desktop app?</h3>
+              <p>Not yet. The backend systems exist, and the website now defines the product language, but the actual Tauri desktop app shell still needs to be implemented.</p>
+            </article>
+            <article class="faq-item reveal">
+              <h3>Can I use IRIS today?</h3>
+              <p>Yes, through the open-source repos and source-first setup path. The packaged desktop download experience is not the primary access path yet.</p>
+            </article>
+            <article class="faq-item reveal">
+              <h3>Will there be both Windows and macOS versions?</h3>
+              <p>Yes. The goal is one shared product with platform-specific adaptations, not two unrelated interfaces.</p>
+            </article>
+            <article class="faq-item reveal">
+              <h3>What is already real in the backend?</h3>
+              <p>Speech input and output, agent routing, browser and shell actions, memory systems, safety gates, and a Tauri-oriented overlay direction are already part of the broader IRIS effort.</p>
+            </article>
+            <article class="faq-item reveal">
+              <h3>Why finish the website first?</h3>
+              <p>Because the website locks the product story, visual language, and interaction expectations before the real app shell starts. That makes desktop implementation faster and more coherent afterward.</p>
+            </article>
+            <article class="faq-item reveal">
+              <h3>How do I follow release progress?</h3>
+              <p>Use the changelog, the repos, and the waitlist page. Those are the cleanest surfaces until the desktop installer flow is live.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-copy">
+          <span class="brand">
+            <span class="brand-mark"></span>
+            <span class="brand-word">IRIS</span>
+          </span>
+          <p>Voice-first AI operating layer for real desktop workflows.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="/index.html">Home</a>
+          <a href="/download.html">Download</a>
+          <a href="/getting-started.html">Docs</a>
+          <a href="/changelog.html">Changelog</a>
+          <a href="/waitlist.html">Waitlist</a>
+          <a href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">Backend</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
