@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IRIS Desktop | Voice-First AI Assistant For Windows</title>
+    <meta
+      name="description"
+      content="Preview the visual language and direction for the future IRIS desktop application."
+    />
+    <meta name="theme-color" content="#07090d" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module">
+      import "./src/styles.css";
+      import "./src/site.js";
+    </script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <div class="ambient ambient-a"></div>
+      <div class="ambient ambient-b"></div>
+      <div class="noise"></div>
+
+      <header class="topbar">
+        <a class="brand" href="/index.html" aria-label="IRIS home">
+          <span class="brand-mark"></span>
+          <span class="brand-word">IRIS</span>
+        </a>
+
+        <nav class="nav">
+          <a href="/index.html">Home</a>
+          <a href="/capabilities.html">Capabilities</a>
+          <a href="/safety.html">Safety</a>
+          <a href="/desktop.html">Desktop</a>
+        </nav>
+
+        <a class="button button-ghost" href="https://github.com/Drufiy/IRIS-frontend" target="_blank" rel="noreferrer">
+          Frontend Repo
+        </a>
+      </header>
+
+      <main>
+        <section class="section page-hero">
+          <div class="page-hero-copy reveal">
+            <p class="eyebrow">Desktop Direction</p>
+            <h1>The website establishes the signal. The app becomes the workspace.</h1>
+            <p class="hero-text">
+              The desktop application should inherit the same quiet sci-fi language, but turn it into something more useful: conversation, action history, memory, settings, and live state all in one place across both Windows and macOS.
+            </p>
+          </div>
+          <div class="page-hero-panel reveal">
+            <div class="desktop-shell desktop-shell-expanded">
+              <div class="desktop-sidebar">
+                <span class="desktop-badge">IRIS</span>
+                <span>Conversation</span>
+                <span>Actions</span>
+                <span>Memory</span>
+                <span>Providers</span>
+                <span>Settings</span>
+              </div>
+              <div class="desktop-main">
+                <div class="desktop-topline">Desktop UI system</div>
+                <h3>Conversation, execution, and system state in one operating surface.</h3>
+                <p>The desktop app should feel like a command center for IRIS rather than a floating chat box.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Core Areas</p>
+            <h2>What the desktop app needs to contain.</h2>
+          </div>
+
+          <div class="detail-grid">
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Conversation</span>
+              <h3>Fast interaction panel</h3>
+              <p>A running conversation surface that supports voice-first use but still works clearly when text, actions, and approvals need to be reviewed.</p>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Actions</span>
+              <h3>Execution history and approvals</h3>
+              <p>A place to inspect what IRIS did, what it plans to do next, and where human approval is currently required.</p>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Memory</span>
+              <h3>Context and recall surfaces</h3>
+              <p>Show what IRIS remembers, what it pulled into the current task, and where a user may want to prune or tune memory behavior.</p>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Providers</span>
+              <h3>Local and remote configuration</h3>
+              <p>Expose provider modes, keys, and routing in a product surface so users do not have to live in raw config files forever.</p>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Platforms</span>
+              <h3>One desktop language, two operating systems</h3>
+              <p>The UI system should be designed once and adapted cleanly for both Windows and macOS rather than split into separate product experiences.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">UI Principles</p>
+            <h2>Rules worth carrying from web to desktop.</h2>
+          </div>
+
+          <div class="timeline-grid">
+            <article class="timeline-card reveal">
+              <span class="flow-index">01</span>
+              <h3>State-first color</h3>
+              <p>Color should communicate listening, action, caution, and completion rather than acting as decoration.</p>
+            </article>
+            <article class="timeline-card reveal">
+              <span class="flow-index">02</span>
+              <h3>Low-clutter surfaces</h3>
+              <p>The UI should stay crisp and quiet, even when multiple systems like memory, approvals, and tasks are visible together.</p>
+            </article>
+            <article class="timeline-card reveal">
+              <span class="flow-index">03</span>
+              <h3>Visible consequences</h3>
+              <p>The app should always make it obvious what IRIS is about to do, what it already did, and when it is waiting on the user.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-copy">
+          <span class="brand">
+            <span class="brand-mark"></span>
+            <span class="brand-word">IRIS</span>
+          </span>
+          <p>Voice-first AI operating layer for real desktop workflows.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="/index.html">Home</a>
+          <a href="/capabilities.html">Capabilities</a>
+          <a href="/safety.html">Safety</a>
+          <a href="https://github.com/Drufiy/IRIS-frontend" target="_blank" rel="noreferrer">Frontend</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

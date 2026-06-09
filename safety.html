@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IRIS Safety | Voice-First AI Assistant For Windows</title>
+    <meta
+      name="description"
+      content="Understand how IRIS handles approvals, action classification, local memory, and explicit provider boundaries."
+    />
+    <meta name="theme-color" content="#07090d" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module">
+      import "./src/styles.css";
+      import "./src/site.js";
+    </script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <div class="ambient ambient-a"></div>
+      <div class="ambient ambient-b"></div>
+      <div class="noise"></div>
+
+      <header class="topbar">
+        <a class="brand" href="/index.html" aria-label="IRIS home">
+          <span class="brand-mark"></span>
+          <span class="brand-word">IRIS</span>
+        </a>
+
+        <nav class="nav">
+          <a href="/index.html">Home</a>
+          <a href="/capabilities.html">Capabilities</a>
+          <a href="/safety.html">Safety</a>
+          <a href="/desktop.html">Desktop</a>
+        </nav>
+
+        <a class="button button-ghost" href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">
+          GitHub
+        </a>
+      </header>
+
+      <main>
+        <section class="section page-hero">
+          <div class="page-hero-copy reveal">
+            <p class="eyebrow">Safety</p>
+            <h1>System control should feel deliberate, not opaque.</h1>
+            <p class="hero-text">
+              IRIS is built around visible state, explicit approvals, and clear provider boundaries so the assistant can act without becoming silent or reckless.
+            </p>
+          </div>
+          <div class="page-hero-panel reveal">
+            <div class="signal-frame compact-frame">
+              <div class="state-list">
+                <div class="state-row">
+                  <span class="state-dot idle"></span>
+                  <div>
+                    <strong>SAFE</strong>
+                    <p>Runs without interrupting the flow.</p>
+                  </div>
+                </div>
+                <div class="state-row">
+                  <span class="state-dot listening"></span>
+                  <div>
+                    <strong>WARN</strong>
+                    <p>Visible and logged for the user.</p>
+                  </div>
+                </div>
+                <div class="state-row">
+                  <span class="state-dot caution"></span>
+                  <div>
+                    <strong>APPROVAL</strong>
+                    <p>Explicit confirmation before risky actions.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Design Principles</p>
+            <h2>Four things safety means in IRIS.</h2>
+          </div>
+
+          <div class="detail-grid">
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Classification</span>
+              <h3>Actions are not treated equally</h3>
+              <p>IRIS distinguishes between safe, warned, and dangerous actions so execution paths can stay proportional to actual risk.</p>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Approval</span>
+              <h3>Destructive steps stay explicit</h3>
+              <p>Potentially dangerous actions go through a confirmation layer in the UI instead of silently happening in the background.</p>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Visibility</span>
+              <h3>State is always part of the experience</h3>
+              <p>The overlay language makes it clear whether IRIS is idle, listening, acting, or waiting for a human decision.</p>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Boundaries</span>
+              <h3>Providers and memory stay explicit</h3>
+              <p>Local memory, cloud APIs, and remote proxy mode are all configurable rather than hidden behind a vague black box.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Example Matrix</p>
+            <h2>How different actions should feel.</h2>
+          </div>
+
+          <div class="matrix-card reveal">
+            <div class="matrix-row matrix-head">
+              <span>Action Type</span>
+              <span>Typical Level</span>
+              <span>Expected UX</span>
+            </div>
+            <div class="matrix-row">
+              <span>Weather / lookup</span>
+              <span>Safe</span>
+              <span>Auto-run with visible feedback</span>
+            </div>
+            <div class="matrix-row">
+              <span>Reminder / task creation</span>
+              <span>Warn</span>
+              <span>Runs clearly, stays logged in flow</span>
+            </div>
+            <div class="matrix-row">
+              <span>Shell / system mutation</span>
+              <span>Warn or approval</span>
+              <span>Escalates when consequences rise</span>
+            </div>
+            <div class="matrix-row">
+              <span>Destructive action</span>
+              <span>Approval</span>
+              <span>Requires explicit human confirmation</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-copy">
+          <span class="brand">
+            <span class="brand-mark"></span>
+            <span class="brand-word">IRIS</span>
+          </span>
+          <p>Voice-first AI operating layer for real desktop workflows.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="/index.html">Home</a>
+          <a href="/capabilities.html">Capabilities</a>
+          <a href="/desktop.html">Desktop</a>
+          <a href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">Backend</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IRIS Capabilities | Voice-First AI Assistant For Windows</title>
+    <meta
+      name="description"
+      content="Explore IRIS capabilities across desktop control, browser automation, memory, speech, and workflow execution."
+    />
+    <meta name="theme-color" content="#07090d" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module">
+      import "./src/styles.css";
+      import "./src/site.js";
+    </script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <div class="ambient ambient-a"></div>
+      <div class="ambient ambient-b"></div>
+      <div class="noise"></div>
+
+      <header class="topbar">
+        <a class="brand" href="/index.html" aria-label="IRIS home">
+          <span class="brand-mark"></span>
+          <span class="brand-word">IRIS</span>
+        </a>
+
+        <nav class="nav">
+          <a href="/index.html">Home</a>
+          <a href="/capabilities.html">Capabilities</a>
+          <a href="/safety.html">Safety</a>
+          <a href="/desktop.html">Desktop</a>
+        </nav>
+
+        <a class="button button-ghost" href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">
+          GitHub
+        </a>
+      </header>
+
+      <main>
+        <section class="section page-hero">
+          <div class="page-hero-copy reveal">
+            <p class="eyebrow">Capabilities</p>
+            <h1>IRIS is built to move across real system work.</h1>
+            <p class="hero-text">
+              The backend already spans speech, agents, memory, browser automation, reminders, shell actions, and desktop control. This page turns those raw pieces into a clearer product surface.
+            </p>
+          </div>
+          <div class="page-hero-panel reveal">
+            <div class="signal-frame compact-frame">
+              <div class="stat-list">
+                <div class="stat-row">
+                  <strong>Speech</strong>
+                  <span>Groq Whisper + ElevenLabs</span>
+                </div>
+                <div class="stat-row">
+                  <strong>Routing</strong>
+                  <span>DeepSeek-backed planning and execution</span>
+                </div>
+                <div class="stat-row">
+                  <strong>Actions</strong>
+                  <span>Desktop, browser, reminders, tasks, files</span>
+                </div>
+                <div class="stat-row">
+                  <strong>Feedback</strong>
+                  <span>Tauri overlay and live visible state</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Capability Groups</p>
+            <h2>One assistant surface, several execution layers.</h2>
+          </div>
+
+          <div class="detail-grid">
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Input</span>
+              <h3>Voice-first command intake</h3>
+              <p>Wake word support, ASR transcription, interruption handling, and a loop designed around spoken interaction rather than typed prompts.</p>
+              <ul class="detail-list">
+                <li>Wake word flow</li>
+                <li>Groq Whisper transcription</li>
+                <li>Conversational turn handling</li>
+              </ul>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Reasoning</span>
+              <h3>Task routing and agent execution</h3>
+              <p>IRIS routes requests into planning, execution, and browser/code-oriented paths so the answer can become action instead of staying text-only.</p>
+              <ul class="detail-list">
+                <li>DeepSeek model routing</li>
+                <li>Planner and executor agents</li>
+                <li>Action-oriented responses</li>
+              </ul>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Control</span>
+              <h3>Desktop and browser action layer</h3>
+              <p>Launch apps, navigate the browser, manage reminders, run shell tasks, and coordinate common workflows through one system surface.</p>
+              <ul class="detail-list">
+                <li>File and shell actions</li>
+                <li>Browser automation</li>
+                <li>Task and reminder flows</li>
+              </ul>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Memory</span>
+              <h3>Context that carries forward</h3>
+              <p>IRIS stores useful context and retrieves it later so the assistant behaves more like a running system and less like a blank chat every time.</p>
+              <ul class="detail-list">
+                <li>Short-term context</li>
+                <li>Long-term memory store</li>
+                <li>Knowledge graph direction</li>
+              </ul>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Output</span>
+              <h3>Speech and visible state feedback</h3>
+              <p>Responses come back through speech and UI state together so the assistant stays legible while it is listening, acting, or waiting for approval.</p>
+              <ul class="detail-list">
+                <li>ElevenLabs TTS</li>
+                <li>Tauri overlay feedback</li>
+                <li>Interactive approval prompts</li>
+              </ul>
+            </article>
+            <article class="detail-card reveal">
+              <span class="demo-card-kicker">Modes</span>
+              <h3>Local and remote operating modes</h3>
+              <p>Run IRIS against your own keys locally or against a shared backend proxy depending on how you want to deploy the assistant.</p>
+              <ul class="detail-list">
+                <li>Local provider mode</li>
+                <li>Remote proxy mode</li>
+                <li>Explicit provider configuration</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Use Cases</p>
+            <h2>What this looks like in practice.</h2>
+          </div>
+
+          <div class="timeline-grid">
+            <article class="timeline-card reveal">
+              <span class="flow-index">01</span>
+              <h3>Navigation</h3>
+              <p>Open tools, pull up a repo, switch context, and keep moving through the machine without keyboard-first friction.</p>
+            </article>
+            <article class="timeline-card reveal">
+              <span class="flow-index">02</span>
+              <h3>Research</h3>
+              <p>Drive browser tasks, scrape or inspect pages, and preserve the result in memory for the next step.</p>
+            </article>
+            <article class="timeline-card reveal">
+              <span class="flow-index">03</span>
+              <h3>Operations</h3>
+              <p>Set reminders, manage tasks, run safe shell commands, and bridge smaller repetitive actions into one voice loop.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-copy">
+          <span class="brand">
+            <span class="brand-mark"></span>
+            <span class="brand-word">IRIS</span>
+          </span>
+          <p>Voice-first AI operating layer for real desktop workflows.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="/index.html">Home</a>
+          <a href="/safety.html">Safety</a>
+          <a href="/desktop.html">Desktop</a>
+          <a href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">Backend</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
