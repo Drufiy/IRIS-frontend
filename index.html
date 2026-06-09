@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IRIS | Voice-First AI Assistant For Windows</title>
+    <meta
+      name="description"
+      content="IRIS is a voice-first AI assistant for Windows that listens, reasons, remembers, and executes real actions across your desktop."
+    />
+    <meta name="theme-color" content="#07090d" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <div class="ambient ambient-a"></div>
+      <div class="ambient ambient-b"></div>
+      <div class="noise"></div>
+
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="IRIS home">
+          <span class="brand-mark"></span>
+          <span class="brand-word">IRIS</span>
+        </a>
+
+        <nav class="nav">
+          <a href="#capabilities">Capabilities</a>
+          <a href="#flow">How It Works</a>
+          <a href="#safety">Safety</a>
+          <a href="#desktop">Desktop</a>
+        </nav>
+
+        <a class="button button-ghost" href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">
+          GitHub
+        </a>
+      </header>
+
+      <main id="top">
+        <section class="hero section">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">Voice-First AI Assistant For Windows</p>
+            <h1>Your computer should respond like an assistant.</h1>
+            <p class="hero-text">
+              IRIS listens, reasons, remembers, and executes real actions across your desktop with visible state, safety gates, and a minimal interface.
+            </p>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">
+                View Backend
+              </a>
+              <a class="button button-secondary" href="#flow">
+                Watch the Flow
+              </a>
+            </div>
+
+            <ul class="summary-strip">
+              <li>Listen</li>
+              <li>Reason</li>
+              <li>Act</li>
+              <li>Remember</li>
+            </ul>
+          </div>
+
+          <div class="hero-visual reveal">
+            <div class="signal-frame">
+              <div class="signal-hud">
+                <span class="signal-label">IRIS STATE</span>
+                <span class="signal-state" data-state-text aria-live="polite">LISTENING</span>
+              </div>
+
+              <div class="signal-core">
+                <div class="signal-ring ring-outer"></div>
+                <div class="signal-ring ring-mid"></div>
+                <div class="signal-ring ring-inner"></div>
+                <div class="signal-pulse"></div>
+              </div>
+
+              <div class="signal-console">
+                <div class="console-line">
+                  <span class="console-k">wake</span>
+                  <span class="console-v">iris</span>
+                </div>
+                <div class="console-line">
+                  <span class="console-k">route</span>
+                  <span class="console-v">deepseek routing active</span>
+                </div>
+                <div class="console-line">
+                  <span class="console-k">status</span>
+                  <span class="console-v" data-state-status>processing request</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="capabilities" class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">What IRIS Actually Does</p>
+            <h2>Not a chat wrapper. A working system interface.</h2>
+            <p>
+              Built around real desktop control, memory, browser automation, and voice interaction instead of a single prompt box.
+            </p>
+          </div>
+
+          <div class="capability-grid">
+            <article class="capability-card reveal">
+              <h3>Launch and Control</h3>
+              <p>Open apps, focus windows, run shell actions, and move through tasks without touching the keyboard first.</p>
+            </article>
+            <article class="capability-card reveal">
+              <h3>Browser Automation</h3>
+              <p>Navigate sites, fill forms, extract information, and coordinate web tasks from a single voice-driven flow.</p>
+            </article>
+            <article class="capability-card reveal">
+              <h3>Memory and Context</h3>
+              <p>IRIS stores useful interaction context locally so it can respond with continuity instead of starting from zero.</p>
+            </article>
+            <article class="capability-card reveal">
+              <h3>Speech In and Out</h3>
+              <p>Groq Whisper handles speech recognition and ElevenLabs delivers spoken replies with low-friction feedback.</p>
+            </article>
+            <article class="capability-card reveal">
+              <h3>Task Routing</h3>
+              <p>Requests are planned, routed, and executed through the agent pipeline rather than treated like one-shot chat.</p>
+            </article>
+            <article class="capability-card reveal">
+              <h3>Local or Remote</h3>
+              <p>IRIS supports both direct local API configuration and a shared remote backend mode, depending on how you want to run it.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="flow" class="section section-flow">
+          <div class="section-heading reveal">
+            <p class="eyebrow">How It Works</p>
+            <h2>From wake word to execution in one visible chain.</h2>
+          </div>
+
+          <div class="flow-grid">
+            <article class="flow-step reveal">
+              <span class="flow-index">01</span>
+              <h3>Wake</h3>
+              <p>IRIS starts from voice. A wake word or direct request pushes the system into an active state.</p>
+            </article>
+            <article class="flow-step reveal">
+              <span class="flow-index">02</span>
+              <h3>Understand</h3>
+              <p>Speech becomes text, context is injected, and the request is framed for actual execution.</p>
+            </article>
+            <article class="flow-step reveal">
+              <span class="flow-index">03</span>
+              <h3>Plan</h3>
+              <p>The agent layer decomposes the task, selects the route, and keeps the system aligned with intent.</p>
+            </article>
+            <article class="flow-step reveal">
+              <span class="flow-index">04</span>
+              <h3>Execute</h3>
+              <p>Files, browser actions, shell tasks, reminders, and responses all move through one action system.</p>
+            </article>
+            <article class="flow-step reveal">
+              <span class="flow-index">05</span>
+              <h3>Respond</h3>
+              <p>IRIS answers with speech and state feedback so the interaction feels like a running operating layer.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section section-states">
+          <div class="state-panel reveal">
+            <div class="state-copy">
+              <p class="eyebrow">Live State Language</p>
+              <h2>Minimal interface. Clear signal.</h2>
+              <p>
+                The IRIS identity comes from state, not clutter. Idle stays quiet. Listening sharpens. Action glows. Approval becomes explicit.
+              </p>
+            </div>
+
+            <div class="state-list">
+              <div class="state-row">
+                <span class="state-dot idle"></span>
+                <div>
+                  <strong>IDLE</strong>
+                  <p>White, static, waiting for intent.</p>
+                </div>
+              </div>
+              <div class="state-row">
+                <span class="state-dot listening"></span>
+                <div>
+                  <strong>LISTENING</strong>
+                  <p>Blue, precise, attentive.</p>
+                </div>
+              </div>
+              <div class="state-row">
+                <span class="state-dot acting"></span>
+                <div>
+                  <strong>ACTING</strong>
+                  <p>Green, forward, executable.</p>
+                </div>
+              </div>
+              <div class="state-row">
+                <span class="state-dot caution"></span>
+                <div>
+                  <strong>APPROVAL</strong>
+                  <p>Warned and deliberate when risk matters.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="safety" class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Safety</p>
+            <h2>System control without silent overreach.</h2>
+          </div>
+
+          <div class="safety-layout">
+            <article class="safety-card reveal">
+              <h3>Action Classification</h3>
+              <p>IRIS separates safe, warned, and dangerous actions before execution instead of treating everything equally.</p>
+            </article>
+            <article class="safety-card reveal">
+              <h3>Approval Gates</h3>
+              <p>Destructive or higher-risk actions require explicit user approval through the interface before they run.</p>
+            </article>
+            <article class="safety-card reveal">
+              <h3>Local Memory</h3>
+              <p>Conversation memory and context storage stay local, while cloud providers and proxy mode remain explicit and configurable.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="desktop" class="section section-desktop">
+          <div class="desktop-preview reveal">
+            <div class="desktop-shell">
+              <div class="desktop-sidebar">
+                <span class="desktop-badge">IRIS</span>
+                <span>Conversation</span>
+                <span>Actions</span>
+                <span>Memory</span>
+                <span>Settings</span>
+              </div>
+              <div class="desktop-main">
+                <div class="desktop-topline">Desktop experience coming next</div>
+                <h3>Website first. Operating console next.</h3>
+                <p>
+                  The marketing site establishes the IRIS identity. The next layer turns that same system language into a full desktop experience with live state, conversations, memory, and controls.
+                </p>
+                <div class="desktop-metrics">
+                  <div>
+                    <strong>Voice</strong>
+                    <span>always-on flow</span>
+                  </div>
+                  <div>
+                    <strong>State</strong>
+                    <span>live visual feedback</span>
+                  </div>
+                  <div>
+                    <strong>Control</strong>
+                    <span>system + browser actions</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="desktop-copy">
+              <p class="eyebrow">Desktop App</p>
+              <h2>The website introduces IRIS. The desktop app becomes IRIS.</h2>
+              <p>
+                We will carry the same color states, typography, glass surfaces, and signal-driven motion into the full app UI so the product feels consistent from first visit to daily use.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-open-source">
+          <div class="open-source-card reveal">
+            <p class="eyebrow">Open Source</p>
+            <h2>Built in Python and Tauri, designed for real workflows.</h2>
+            <p>
+              IRIS already has a live backend with DeepSeek routing, Groq Whisper ASR, ElevenLabs TTS, memory, browser automation, safety gates, and a Tauri overlay. This frontend is the public-facing layer of that system.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">
+                Explore Backend
+              </a>
+              <a class="button button-secondary" href="https://github.com/Drufiy/IRIS-frontend" target="_blank" rel="noreferrer">
+                Explore Frontend
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-copy">
+          <span class="brand">
+            <span class="brand-mark"></span>
+            <span class="brand-word">IRIS</span>
+          </span>
+          <p>Voice-first AI operating layer for real desktop workflows.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="#capabilities">Capabilities</a>
+          <a href="#safety">Safety</a>
+          <a href="#desktop">Desktop</a>
+          <a href="https://github.com/Drufiy/IRIS-backend" target="_blank" rel="noreferrer">Backend</a>
+          <a href="https://github.com/Drufiy/IRIS-frontend" target="_blank" rel="noreferrer">Frontend</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
