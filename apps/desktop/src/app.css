@@ -230,8 +230,15 @@ button {
 
 .desktop-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(280px, 0.82fr);
   gap: 18px;
+}
+
+.desktop-grid--primary {
+  grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+}
+
+.desktop-grid--secondary {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .desktop-card {
@@ -250,7 +257,9 @@ button {
 
 .thread-list,
 .action-list,
-.provider-list {
+.provider-list,
+.memory-list,
+.settings-list {
   display: grid;
   gap: 12px;
 }
@@ -258,6 +267,8 @@ button {
 .thread-entry,
 .action-row,
 .provider-row,
+.memory-row,
+.settings-row,
 .approval-note {
   padding: 16px;
   border-radius: 18px;
@@ -278,7 +289,10 @@ button {
 }
 
 .action-row,
-.provider-row {
+.provider-row,
+.memory-row,
+.settings-row,
+.diagnostic-card {
   display: grid;
   gap: 6px;
 }
@@ -294,6 +308,16 @@ button {
 .action-row--approval,
 .provider-row--degraded {
   border-color: rgba(255, 138, 99, 0.18);
+}
+
+.provider-row--healthy,
+.diagnostic-card--healthy {
+  border-color: rgba(56, 210, 125, 0.18);
+}
+
+.provider-row--offline,
+.diagnostic-card--offline {
+  border-color: rgba(255, 138, 99, 0.3);
 }
 
 .approval-block {
@@ -335,10 +359,18 @@ button {
   background: rgba(255, 255, 255, 0.02);
 }
 
+.diagnostic-card--degraded {
+  border-color: rgba(255, 138, 99, 0.18);
+}
+
 @media (max-width: 1080px) {
   .desktop-layout,
-  .desktop-grid,
   .desktop-footer-band {
+    grid-template-columns: 1fr;
+  }
+
+  .desktop-grid--primary,
+  .desktop-grid--secondary {
     grid-template-columns: 1fr;
   }
 }

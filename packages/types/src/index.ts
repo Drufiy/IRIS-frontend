@@ -1,4 +1,5 @@
 export type IrisState = "idle" | "listening" | "reasoning" | "acting" | "approval";
+export type HealthState = "healthy" | "degraded" | "offline";
 
 export type SurfaceKey =
   | "conversation"
@@ -31,7 +32,7 @@ export interface ProviderStatus {
   id: string;
   label: string;
   value: string;
-  health: "healthy" | "degraded" | "offline";
+  health: HealthState;
 }
 
 export interface ApprovalRequest {
@@ -40,9 +41,40 @@ export interface ApprovalRequest {
   consequence: string;
 }
 
+export interface MemoryEntry {
+  id: string;
+  title: string;
+  detail: string;
+}
+
+export interface SettingEntry {
+  id: string;
+  label: string;
+  value: string;
+}
+
+export interface DiagnosticEntry {
+  id: string;
+  label: string;
+  value: string;
+  health: HealthState;
+}
+
 export interface DesktopBootstrapSnapshot {
   appName: string;
   platform: string;
   stage: string;
   backendBridge: string;
+}
+
+export interface DesktopShellSnapshot {
+  bootstrap: DesktopBootstrapSnapshot;
+  state: IrisState;
+  conversation: ConversationEntry[];
+  actions: ActionEntry[];
+  providers: ProviderStatus[];
+  memory: MemoryEntry[];
+  settings: SettingEntry[];
+  approval: ApprovalRequest;
+  diagnostics: DiagnosticEntry[];
 }

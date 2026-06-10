@@ -1,20 +1,66 @@
 import { invoke } from "@tauri-apps/api/core";
 
-import type { DesktopBootstrapSnapshot } from "@iris/types";
+import type { DesktopShellSnapshot } from "@iris/types";
 
 function isTauriRuntime() {
   return typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
 }
 
-export async function readBootstrapSnapshot(): Promise<DesktopBootstrapSnapshot> {
+const browserPreviewSnapshot: DesktopShellSnapshot = {
+  bootstrap: {
+    appName: "IRIS Desktop",
+    platform: "browser-preview",
+    stage: "D2 + D3 scaffold",
+    backendBridge: "local mock snapshot",
+  },
+  state: "listening",
+  conversation: [
+    {
+      id: "u1",
+      speaker: "user",
+      text: "Open Chrome, bring up the frontend repo, and remind me what blocks the desktop app.",
+      emphasis: "active",
+    },
+    {
+      id: "i1",
+      speaker: "iris",
+      text: "Reviewing repo state, checking the current milestone, and preparing the next desktop implementation step.",
+    },
+  ],
+  actions: [
+    { id: "a1", label: "Browser focus", detail: "Repo tab pinned and ready", status: "running" },
+    { id: "a2", label: "Milestone summary", detail: "Collecting website completion output", status: "complete" },
+    { id: "a3", label: "Desktop plan", detail: "Waiting for backend bridge hookup", status: "queued" },
+  ],
+  providers: [
+    { id: "p1", label: "LLM routing", value: "Read-only snapshot connected", health: "degraded" },
+    { id: "p2", label: "ASR", value: "Awaiting live backend runtime", health: "degraded" },
+    { id: "p3", label: "TTS", value: "Awaiting live backend runtime", health: "degraded" },
+  ],
+  memory: [
+    { id: "m1", title: "Current milestone", detail: "Website is complete and desktop shell work has started." },
+    { id: "m2", title: "Platform goal", detail: "One shared IRIS app surface across Windows and macOS." },
+  ],
+  settings: [
+    { id: "s1", label: "Startup mode", value: "Manual launch until backend supervision lands" },
+    { id: "s2", label: "Voice trigger", value: "Wake flow planned for later milestone" },
+  ],
+  approval: {
+    title: "Approval surface placeholder",
+    summary: "High-risk or state-changing actions will appear here once the execution bridge is live.",
+    consequence: "The D2 shell keeps approvals structurally present so they remain part of the product, not a late add-on.",
+  },
+  diagnostics: [
+    { id: "d1", label: "Backend bridge", value: "Read-only snapshot only", health: "degraded" },
+    { id: "d2", label: "Memory", value: "Static preview contract", health: "healthy" },
+    { id: "d3", label: "Settings", value: "UI shell ready for live configuration later", health: "healthy" },
+  ],
+};
+
+export async function readShellSnapshot(): Promise<DesktopShellSnapshot> {
   if (!isTauriRuntime()) {
-    return {
-      appName: "IRIS Desktop",
-      platform: "browser-preview",
-      stage: "D1 scaffold",
-      backendBridge: "not attached yet",
-    };
+    return browserPreviewSnapshot;
   }
 
-  return invoke<DesktopBootstrapSnapshot>("get_bootstrap_snapshot");
+  return invoke<DesktopShellSnapshot>("get_shell_snapshot");
 }
