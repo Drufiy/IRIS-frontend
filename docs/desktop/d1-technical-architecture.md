@@ -53,6 +53,7 @@ Current bridge progress:
 - the desktop shell now prefers a read-only backend HTTP snapshot endpoint
 - the backend can expose `/health` and `/shell_snapshot`
 - Tauri invoke remains as a fallback path when the Python runtime is not attached
+- the shell polls the snapshot contract on an interval so runtime health changes become visible without relaunching
 
 ## D1 Scope
 

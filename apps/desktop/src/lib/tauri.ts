@@ -4,6 +4,13 @@ import type { DesktopShellSnapshot } from "@iris/types";
 
 const SHELL_SNAPSHOT_URL = "http://127.0.0.1:7790/shell_snapshot";
 
+export type ShellSnapshotSource = "http" | "tauri" | "preview";
+
+export interface ShellSnapshotResult {
+  snapshot: DesktopShellSnapshot;
+  source: ShellSnapshotSource;
+}
+
 function isTauriRuntime() {
   return typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
 }
@@ -59,19 +66,28 @@ const browserPreviewSnapshot: DesktopShellSnapshot = {
   ],
 };
 
-export async function readShellSnapshot(): Promise<DesktopShellSnapshot> {
+export async function readShellSnapshot(): Promise<ShellSnapshotResult> {
   try {
     const response = await fetch(SHELL_SNAPSHOT_URL);
     if (response.ok) {
-      return (await response.json()) as DesktopShellSnapshot;
+      return {
+        snapshot: (await response.json()) as DesktopShellSnapshot,
+        source: "http",
+      };
     }
   } catch {
     // Fall through to Tauri invoke or browser preview fallback.
   }
 
   if (!isTauriRuntime()) {
-    return browserPreviewSnapshot;
+    return {
+      snapshot: browserPreviewSnapshot,
+      source: "preview",
+    };
   }
 
-  return invoke<DesktopShellSnapshot>("get_shell_snapshot");
+  return {
+    snapshot: await invoke<DesktopShellSnapshot>("get_shell_snapshot"),
+    source: "tauri",
+  };
 }

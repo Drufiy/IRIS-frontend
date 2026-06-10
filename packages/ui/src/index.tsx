@@ -23,12 +23,14 @@ interface WindowChromeProps {
 interface ShellSidebarProps {
   items: SidebarItem[];
   active: SurfaceKey;
+  onSelect?: (key: SurfaceKey) => void;
 }
 
 interface SectionCardProps {
   eyebrow: string;
   title: string;
   children: ReactNode;
+  focused?: boolean;
 }
 
 interface SignalBadgeProps {
@@ -85,7 +87,7 @@ export function WindowChrome({ title, subtitle, status, children }: WindowChrome
   );
 }
 
-export function ShellSidebar({ items, active }: ShellSidebarProps) {
+export function ShellSidebar({ items, active, onSelect }: ShellSidebarProps) {
   return (
     <aside className="desktop-sidebar-shell">
       <div className="desktop-sidebar-shell__brand">
@@ -98,22 +100,24 @@ export function ShellSidebar({ items, active }: ShellSidebarProps) {
 
       <nav className="desktop-sidebar-shell__nav" aria-label="Desktop surfaces">
         {items.map((item) => (
-          <div
+          <button
+            type="button"
             key={item.key}
             className={`desktop-sidebar-shell__item${item.key === active ? " is-active" : ""}`}
+            onClick={() => onSelect?.(item.key)}
           >
             <strong>{item.label}</strong>
             <span>{item.hint}</span>
-          </div>
+          </button>
         ))}
       </nav>
     </aside>
   );
 }
 
-export function SectionCard({ eyebrow, title, children }: SectionCardProps) {
+export function SectionCard({ eyebrow, title, children, focused = false }: SectionCardProps) {
   return (
-    <section className="desktop-card">
+    <section className={`desktop-card${focused ? " is-focused" : ""}`}>
       <span className="desktop-card__eyebrow">{eyebrow}</span>
       <h2>{title}</h2>
       {children}

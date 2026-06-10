@@ -144,10 +144,14 @@ button {
 .desktop-sidebar-shell__item {
   display: grid;
   gap: 6px;
+  width: 100%;
   padding: 16px;
   border-radius: 18px;
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.015);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
 .desktop-sidebar-shell__item.is-active {
@@ -206,6 +210,30 @@ button {
   gap: 12px;
 }
 
+.desktop-hero__meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.desktop-meta-card {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid var(--iris-line);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.desktop-meta-card strong {
+  font-family: "Sora", sans-serif;
+}
+
+.desktop-meta-card span {
+  color: var(--iris-text-muted);
+  line-height: 1.6;
+}
+
 .signal-badge {
   display: grid;
   gap: 4px;
@@ -253,6 +281,11 @@ button {
 .desktop-card h2 {
   margin: 0;
   font-size: 1.08rem;
+}
+
+.desktop-card.is-focused {
+  border-color: rgba(86, 168, 255, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(86, 168, 255, 0.08);
 }
 
 .thread-list,
@@ -371,6 +404,10 @@ button {
 
   .desktop-grid--primary,
   .desktop-grid--secondary {
+    grid-template-columns: 1fr;
+  }
+
+  .desktop-hero__meta {
     grid-template-columns: 1fr;
   }
 }
