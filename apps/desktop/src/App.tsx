@@ -15,7 +15,13 @@ import {
   WindowChrome,
 } from "@iris/ui";
 
-import { type ShellSnapshotSource, readShellSnapshot } from "./lib/tauri";
+import {
+  launchBackend,
+  readRuntimeStatus,
+  readShellSnapshot,
+  type DesktopRuntimeStatus,
+  type ShellSnapshotSource,
+} from "./lib/tauri";
 
 const sidebarItems: SidebarItem[] = [
   { key: "conversation", label: "Conversation", hint: "Voice and transcript flow" },
@@ -93,9 +99,34 @@ export default function App() {
   const [bridgeSource, setBridgeSource] = useState<ShellSnapshotSource>("preview");
   const [lastUpdated, setLastUpdated] = useState<string>("Waiting for first snapshot");
   const [bridgeError, setBridgeError] = useState<string>("");
+  const [runtimeStatus, setRuntimeStatus] = useState<DesktopRuntimeStatus | null>(null);
+  const [launchingBackend, setLaunchingBackend] = useState(false);
+  const [launchFeedback, setLaunchFeedback] = useState("Awaiting desktop runtime check");
 
   useEffect(() => {
     let cancelled = false;
+
+    async function refreshRuntimeStatus() {
+      try {
+        const next = await readRuntimeStatus();
+        if (cancelled || next === null) {
+          return;
+        }
+
+        startTransition(() => {
+          setRuntimeStatus(next);
+          setLaunchFeedback(next.guidance);
+        });
+      } catch (error) {
+        if (cancelled) {
+          return;
+        }
+
+        startTransition(() => {
+          setLaunchFeedback(error instanceof Error ? error.message : "Runtime status unavailable");
+        });
+      }
+    }
 
     async function loadSnapshot() {
       try {
@@ -129,8 +160,10 @@ export default function App() {
     }
 
     void loadSnapshot();
+    void refreshRuntimeStatus();
     const interval = window.setInterval(() => {
       void loadSnapshot();
+      void refreshRuntimeStatus();
     }, 4000);
 
     return () => {
@@ -138,6 +171,23 @@ export default function App() {
       window.clearInterval(interval);
     };
   }, []);
+
+  async function handleBackendLaunch() {
+    setLaunchingBackend(true);
+    try {
+      const result = await launchBackend();
+      startTransition(() => {
+        setRuntimeStatus(result.status);
+        setLaunchFeedback(result.message);
+      });
+    } catch (error) {
+      startTransition(() => {
+        setLaunchFeedback(error instanceof Error ? error.message : "Backend launch failed");
+      });
+    } finally {
+      setLaunchingBackend(false);
+    }
+  }
 
   return (
     <div className="desktop-app">
@@ -187,6 +237,33 @@ export default function App() {
                   <span>{bridgeError || "Polling every 4 seconds with graceful fallback."}</span>
                 </div>
               </div>
+
+              {runtimeStatus ? (
+                <div className="desktop-runtime-panel">
+                  <div className="desktop-runtime-panel__copy">
+                    <strong>Desktop runtime control</strong>
+                    <span>{launchFeedback}</span>
+                  </div>
+                  <div className="desktop-runtime-panel__actions">
+                    <button
+                      type="button"
+                      className="desktop-cta-button"
+                      onClick={() => void handleBackendLaunch()}
+                      disabled={launchingBackend || runtimeStatus.connected}
+                    >
+                      {runtimeStatus.connected
+                        ? "Backend connected"
+                        : launchingBackend
+                          ? "Launching backend..."
+                          : "Launch backend"}
+                    </button>
+                    <div className="desktop-runtime-panel__paths">
+                      <span>{runtimeStatus.healthUrl}</span>
+                      <span>{runtimeStatus.pythonPath}</span>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
             </section>
 
             <div className="desktop-grid desktop-grid--primary">
@@ -214,6 +291,14 @@ export default function App() {
 
               <SectionCard eyebrow="Settings" title="Desktop controls" focused={activeSurface === "settings"}>
                 <SettingsList entries={snapshot.settings} />
+                {runtimeStatus ? (
+                  <div className="desktop-inline-note">
+                    <strong>Backend directory</strong>
+                    <span>{runtimeStatus.backendDir}</span>
+                    <strong>Entry script</strong>
+                    <span>{runtimeStatus.entryScript}</span>
+                  </div>
+                ) : null}
               </SectionCard>
 
               <SectionCard eyebrow="Approval" title={snapshot.approval.title}>

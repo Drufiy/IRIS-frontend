@@ -11,6 +11,22 @@ export interface ShellSnapshotResult {
   source: ShellSnapshotSource;
 }
 
+export interface DesktopRuntimeStatus {
+  connected: boolean;
+  source: string;
+  healthUrl: string;
+  backendDir: string;
+  pythonPath: string;
+  entryScript: string;
+  guidance: string;
+}
+
+export interface DesktopLaunchResult {
+  started: boolean;
+  message: string;
+  status: DesktopRuntimeStatus;
+}
+
 function isTauriRuntime() {
   return typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
 }
@@ -90,4 +106,16 @@ export async function readShellSnapshot(): Promise<ShellSnapshotResult> {
     snapshot: await invoke<DesktopShellSnapshot>("get_shell_snapshot"),
     source: "tauri",
   };
+}
+
+export async function readRuntimeStatus(): Promise<DesktopRuntimeStatus | null> {
+  if (!isTauriRuntime()) {
+    return null;
+  }
+
+  return invoke<DesktopRuntimeStatus>("get_runtime_status");
+}
+
+export async function launchBackend(): Promise<DesktopLaunchResult> {
+  return invoke<DesktopLaunchResult>("launch_backend");
 }

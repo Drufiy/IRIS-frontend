@@ -39,6 +39,11 @@ button {
   font: inherit;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
 .desktop-app {
   min-height: 100vh;
   padding: 24px;
@@ -234,6 +239,52 @@ button {
   line-height: 1.6;
 }
 
+.desktop-runtime-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 16px;
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(86, 168, 255, 0.14);
+  background:
+    linear-gradient(180deg, rgba(86, 168, 255, 0.08), transparent),
+    rgba(255, 255, 255, 0.025);
+}
+
+.desktop-runtime-panel__copy,
+.desktop-runtime-panel__actions,
+.desktop-runtime-panel__paths,
+.desktop-inline-note {
+  display: grid;
+  gap: 8px;
+}
+
+.desktop-runtime-panel__copy strong,
+.desktop-inline-note strong {
+  font-family: "Sora", sans-serif;
+}
+
+.desktop-runtime-panel__copy span,
+.desktop-runtime-panel__paths span,
+.desktop-inline-note span {
+  color: var(--iris-text-muted);
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.desktop-runtime-panel__actions {
+  align-content: start;
+}
+
+.desktop-cta-button {
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(86, 168, 255, 0.24);
+  background: linear-gradient(135deg, rgba(86, 168, 255, 0.18), rgba(56, 210, 125, 0.16));
+  color: var(--iris-text);
+}
+
 .signal-badge {
   display: grid;
   gap: 4px;
@@ -408,6 +459,10 @@ button {
   }
 
   .desktop-hero__meta {
+    grid-template-columns: 1fr;
+  }
+
+  .desktop-runtime-panel {
     grid-template-columns: 1fr;
   }
 }

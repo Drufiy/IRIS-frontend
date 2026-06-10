@@ -54,6 +54,7 @@ Current bridge progress:
 - the backend can expose `/health` and `/shell_snapshot`
 - Tauri invoke remains as a fallback path when the Python runtime is not attached
 - the shell polls the snapshot contract on an interval so runtime health changes become visible without relaunching
+- the Tauri host can probe backend reachability and attempt a local dev launch using explicit backend path overrides
 
 ## D1 Scope
 

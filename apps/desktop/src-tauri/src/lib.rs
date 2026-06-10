@@ -1,4 +1,13 @@
+use reqwest::blocking::Client;
 use serde::Serialize;
+use std::path::PathBuf;
+use std::process::Command;
+use std::time::Duration;
+
+#[cfg(target_os = "windows")]
+use std::os::windows::process::CommandExt;
+
+const BACKEND_HEALTH_URL: &str = "http://127.0.0.1:7790/health";
 
 #[derive(Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -83,47 +92,201 @@ struct DesktopShellSnapshot {
     diagnostics: Vec<DiagnosticEntry>,
 }
 
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct RuntimeStatus {
+    connected: bool,
+    source: &'static str,
+    health_url: String,
+    backend_dir: String,
+    python_path: String,
+    entry_script: String,
+    guidance: String,
+}
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct LaunchResult {
+    started: bool,
+    message: String,
+    status: RuntimeStatus,
+}
+
+fn default_backend_dir() -> PathBuf {
+    if let Ok(value) = std::env::var("IRIS_BACKEND_DIR") {
+        return PathBuf::from(value);
+    }
+
+    if cfg!(target_os = "windows") {
+        PathBuf::from(r"C:\Iris")
+    } else {
+        let home = std::env::var("HOME").unwrap_or_else(|_| String::from("."));
+        PathBuf::from(home).join("Iris")
+    }
+}
+
+fn default_python_path(backend_dir: &PathBuf) -> PathBuf {
+    if let Ok(value) = std::env::var("IRIS_BACKEND_PYTHON") {
+        return PathBuf::from(value);
+    }
+
+    if cfg!(target_os = "windows") {
+        backend_dir.join(".venv").join("Scripts").join("python.exe")
+    } else {
+        backend_dir.join(".venv").join("bin").join("python")
+    }
+}
+
+fn default_entry_script(backend_dir: &PathBuf) -> PathBuf {
+    if let Ok(value) = std::env::var("IRIS_BACKEND_ENTRY") {
+        return PathBuf::from(value);
+    }
+
+    backend_dir.join("main.py")
+}
+
+fn current_runtime_status() -> RuntimeStatus {
+    let backend_dir = default_backend_dir();
+    let python_path = default_python_path(&backend_dir);
+    let entry_script = default_entry_script(&backend_dir);
+
+    let connected = Client::builder()
+        .timeout(Duration::from_millis(1200))
+        .build()
+        .and_then(|client| client.get(BACKEND_HEALTH_URL).send())
+        .map(|response| response.status().is_success())
+        .unwrap_or(false);
+
+    let guidance = if connected {
+        String::from("Backend health endpoint responded. The desktop shell can read live runtime state.")
+    } else if !python_path.exists() {
+        format!(
+            "Backend is offline and no Python executable was found at {}. Set IRIS_BACKEND_PYTHON or create the backend virtual environment.",
+            python_path.display()
+        )
+    } else if !entry_script.exists() {
+        format!(
+            "Backend is offline and no entry script was found at {}. Set IRIS_BACKEND_ENTRY or point IRIS_BACKEND_DIR to the backend repo.",
+            entry_script.display()
+        )
+    } else {
+        format!(
+            "Backend is offline. The desktop app can try launching {} from {}.",
+            entry_script.display(),
+            backend_dir.display()
+        )
+    };
+
+    RuntimeStatus {
+        connected,
+        source: if connected { "http" } else { "local-dev" },
+        health_url: String::from(BACKEND_HEALTH_URL),
+        backend_dir: backend_dir.display().to_string(),
+        python_path: python_path.display().to_string(),
+        entry_script: entry_script.display().to_string(),
+        guidance,
+    }
+}
+
+#[tauri::command]
+fn get_runtime_status() -> RuntimeStatus {
+    current_runtime_status()
+}
+
+#[tauri::command]
+fn launch_backend() -> Result<LaunchResult, String> {
+    let status = current_runtime_status();
+    if status.connected {
+        return Ok(LaunchResult {
+            started: false,
+            message: String::from("Backend is already reachable."),
+            status,
+        });
+    }
+
+    let backend_dir = PathBuf::from(&status.backend_dir);
+    let python_path = PathBuf::from(&status.python_path);
+    let entry_script = PathBuf::from(&status.entry_script);
+
+    if !python_path.exists() {
+        return Err(format!(
+            "Python executable not found at {}",
+            python_path.display()
+        ));
+    }
+
+    if !entry_script.exists() {
+        return Err(format!(
+            "Backend entry script not found at {}",
+            entry_script.display()
+        ));
+    }
+
+    let mut command = Command::new(&python_path);
+    command.arg(&entry_script).current_dir(&backend_dir);
+
+    #[cfg(target_os = "windows")]
+    {
+        command.creation_flags(0x08000000);
+    }
+
+    command
+        .spawn()
+        .map_err(|error| format!("Failed to launch backend: {error}"))?;
+
+    let refreshed = current_runtime_status();
+    Ok(LaunchResult {
+        started: true,
+        message: if refreshed.connected {
+            String::from("Backend launch triggered and health endpoint responded.")
+        } else {
+            String::from("Backend launch triggered. Health endpoint has not responded yet.")
+        },
+        status: refreshed,
+    })
+}
+
 #[tauri::command]
 fn get_shell_snapshot() -> DesktopShellSnapshot {
     DesktopShellSnapshot {
         bootstrap: DesktopBootstrapSnapshot {
             app_name: "IRIS Desktop",
             platform: std::env::consts::OS.to_string(),
-            stage: "D2 + D3 scaffold",
-            backend_bridge: "read-only shell snapshot placeholder",
+            stage: "D5 runtime supervision",
+            backend_bridge: "Tauri host can inspect and launch local backend",
         },
         state: "listening",
         conversation: vec![
             ConversationEntry {
                 id: "u1",
                 speaker: "user",
-                text: "Open Chrome, bring up the frontend repo, and remind me what blocks the desktop app.",
+                text: "Launch the backend if needed and keep the shell tied to real runtime health.",
                 emphasis: Some("active"),
             },
             ConversationEntry {
                 id: "i1",
                 speaker: "iris",
-                text: "Reviewing repo state, checking the current milestone, and preparing the next desktop implementation step.",
+                text: "Watching the local health endpoint, using fallback snapshots when needed, and preparing supervision controls.",
                 emphasis: None,
             },
         ],
         actions: vec![
             ActionEntry {
                 id: "a1",
-                label: "Browser focus",
-                detail: "Repo tab pinned and ready",
+                label: "Runtime health",
+                detail: "Polling local backend status",
                 status: "running",
             },
             ActionEntry {
                 id: "a2",
-                label: "Milestone summary",
-                detail: "Collecting desktop scaffold state",
+                label: "Bridge fallback",
+                detail: "Using HTTP first, then Tauri snapshot fallback",
                 status: "complete",
             },
             ActionEntry {
                 id: "a3",
-                label: "Backend bridge",
-                detail: "Read-only contract in place, live transport still pending",
+                label: "Backend supervision",
+                detail: "Local dev launch path prepared in desktop host",
                 status: "queued",
             },
         ],
@@ -131,19 +294,19 @@ fn get_shell_snapshot() -> DesktopShellSnapshot {
             ProviderStatus {
                 id: "p1",
                 label: "LLM routing",
-                value: "Awaiting live backend health endpoint",
+                value: "Ready for live health wiring through Python runtime",
                 health: "degraded",
             },
             ProviderStatus {
                 id: "p2",
                 label: "ASR",
-                value: "Shell ready for Groq status wiring",
+                value: "Groq status expected from backend snapshot",
                 health: "degraded",
             },
             ProviderStatus {
                 id: "p3",
                 label: "TTS",
-                value: "Shell ready for ElevenLabs status wiring",
+                value: "ElevenLabs status expected from backend snapshot",
                 health: "degraded",
             },
         ],
@@ -151,48 +314,48 @@ fn get_shell_snapshot() -> DesktopShellSnapshot {
             MemoryEntry {
                 id: "m1",
                 title: "Current milestone",
-                detail: "Website is complete and the real desktop shell scaffold is live.",
+                detail: "Desktop host now knows how to inspect backend reachability and attempt local launch.",
             },
             MemoryEntry {
                 id: "m2",
-                title: "Product rule",
-                detail: "One shared app structure across Windows and macOS, not two disconnected products.",
+                title: "Cross-platform rule",
+                detail: "Windows and macOS share one shell while launch paths adapt by platform.",
             },
         ],
         settings: vec![
             SettingEntry {
                 id: "s1",
                 label: "Launch mode",
-                value: "Manual until backend supervision is attached",
+                value: "Tauri local supervision for dev runtime",
             },
             SettingEntry {
                 id: "s2",
-                label: "Permissions",
-                value: "Conservative default Tauri capability only",
+                label: "Backend override",
+                value: "IRIS_BACKEND_DIR / IRIS_BACKEND_PYTHON / IRIS_BACKEND_ENTRY",
             },
         ],
         approval: ApprovalRequest {
             title: "Approval surface placeholder",
             summary: "High-risk or state-changing actions will appear here once the execution bridge is live.",
-            consequence: "The shell already reserves approval space so safety remains part of the product structure from the start.",
+            consequence: "The shell keeps approvals visible early so safety does not become an afterthought.",
         },
         diagnostics: vec![
             DiagnosticEntry {
                 id: "d1",
-                label: "Backend bridge",
-                value: "Read-only shell snapshot is available",
+                label: "Runtime host",
+                value: "Tauri host can probe backend health",
                 health: "healthy",
             },
             DiagnosticEntry {
                 id: "d2",
-                label: "Providers",
-                value: "UI contract ready, live health still pending",
-                health: "degraded",
+                label: "Launch path",
+                value: "Desktop host can attempt local backend launch",
+                health: "healthy",
             },
             DiagnosticEntry {
                 id: "d3",
                 label: "Cross-platform scope",
-                value: "Shared shell validated for Windows and macOS direction",
+                value: "Shared shell stays aligned for Windows and macOS",
                 health: "healthy",
             },
         ],
@@ -202,7 +365,11 @@ fn get_shell_snapshot() -> DesktopShellSnapshot {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![get_shell_snapshot])
+        .invoke_handler(tauri::generate_handler![
+            get_runtime_status,
+            launch_backend,
+            get_shell_snapshot
+        ])
         .run(tauri::generate_context!())
         .expect("error while running IRIS desktop shell");
 }
