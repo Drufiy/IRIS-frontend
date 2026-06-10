@@ -254,6 +254,8 @@ button:disabled {
 .desktop-runtime-panel__copy,
 .desktop-runtime-panel__actions,
 .desktop-runtime-panel__paths,
+.desktop-runtime-panel__buttons,
+.desktop-runtime-panel__chips,
 .desktop-inline-note {
   display: grid;
   gap: 8px;
@@ -283,6 +285,50 @@ button:disabled {
   border: 1px solid rgba(86, 168, 255, 0.24);
   background: linear-gradient(135deg, rgba(86, 168, 255, 0.18), rgba(56, 210, 125, 0.16));
   color: var(--iris-text);
+}
+
+.desktop-runtime-panel__buttons {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.desktop-secondary-button {
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid var(--iris-line-strong);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--iris-text);
+}
+
+.desktop-runtime-panel__chips {
+  grid-template-columns: repeat(2, max-content);
+  align-items: center;
+}
+
+.desktop-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--iris-line);
+  color: var(--iris-text-muted);
+  text-transform: capitalize;
+}
+
+.desktop-chip--healthy {
+  border-color: rgba(56, 210, 125, 0.24);
+  color: #a9f1c3;
+}
+
+.desktop-chip--degraded {
+  border-color: rgba(86, 168, 255, 0.24);
+  color: #b8d5ff;
+}
+
+.desktop-chip--offline {
+  border-color: rgba(255, 138, 99, 0.28);
+  color: #ffc4b1;
 }
 
 .signal-badge {
@@ -463,6 +509,11 @@ button:disabled {
   }
 
   .desktop-runtime-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .desktop-runtime-panel__buttons,
+  .desktop-runtime-panel__chips {
     grid-template-columns: 1fr;
   }
 }

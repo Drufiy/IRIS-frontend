@@ -14,15 +14,21 @@ export interface ShellSnapshotResult {
 export interface DesktopRuntimeStatus {
   connected: boolean;
   source: string;
+  health: "healthy" | "degraded" | "offline";
   healthUrl: string;
   backendDir: string;
+  backendDirExists: boolean;
   pythonPath: string;
+  pythonExists: boolean;
   entryScript: string;
+  entryExists: boolean;
+  launchReady: boolean;
   guidance: string;
 }
 
 export interface DesktopLaunchResult {
   started: boolean;
+  pid: number | null;
   message: string;
   status: DesktopRuntimeStatus;
 }

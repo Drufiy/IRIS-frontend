@@ -2,6 +2,8 @@ use reqwest::blocking::Client;
 use serde::Serialize;
 use std::path::PathBuf;
 use std::process::Command;
+use std::process::Stdio;
+use std::thread::sleep;
 use std::time::Duration;
 
 #[cfg(target_os = "windows")]
@@ -97,10 +99,15 @@ struct DesktopShellSnapshot {
 struct RuntimeStatus {
     connected: bool,
     source: &'static str,
+    health: &'static str,
     health_url: String,
     backend_dir: String,
+    backend_dir_exists: bool,
     python_path: String,
+    python_exists: bool,
     entry_script: String,
+    entry_exists: bool,
+    launch_ready: bool,
     guidance: String,
 }
 
@@ -108,6 +115,7 @@ struct RuntimeStatus {
 #[serde(rename_all = "camelCase")]
 struct LaunchResult {
     started: bool,
+    pid: Option<u32>,
     message: String,
     status: RuntimeStatus,
 }
@@ -149,6 +157,10 @@ fn current_runtime_status() -> RuntimeStatus {
     let backend_dir = default_backend_dir();
     let python_path = default_python_path(&backend_dir);
     let entry_script = default_entry_script(&backend_dir);
+    let backend_dir_exists = backend_dir.exists();
+    let python_exists = python_path.exists();
+    let entry_exists = entry_script.exists();
+    let launch_ready = backend_dir_exists && python_exists && entry_exists;
 
     let connected = Client::builder()
         .timeout(Duration::from_millis(1200))
@@ -159,12 +171,17 @@ fn current_runtime_status() -> RuntimeStatus {
 
     let guidance = if connected {
         String::from("Backend health endpoint responded. The desktop shell can read live runtime state.")
-    } else if !python_path.exists() {
+    } else if !backend_dir_exists {
+        format!(
+            "Backend repo was not found at {}. Set IRIS_BACKEND_DIR so the desktop app knows where IRIS lives.",
+            backend_dir.display()
+        )
+    } else if !python_exists {
         format!(
             "Backend is offline and no Python executable was found at {}. Set IRIS_BACKEND_PYTHON or create the backend virtual environment.",
             python_path.display()
         )
-    } else if !entry_script.exists() {
+    } else if !entry_exists {
         format!(
             "Backend is offline and no entry script was found at {}. Set IRIS_BACKEND_ENTRY or point IRIS_BACKEND_DIR to the backend repo.",
             entry_script.display()
@@ -180,12 +197,35 @@ fn current_runtime_status() -> RuntimeStatus {
     RuntimeStatus {
         connected,
         source: if connected { "http" } else { "local-dev" },
+        health: if connected {
+            "healthy"
+        } else if launch_ready {
+            "degraded"
+        } else {
+            "offline"
+        },
         health_url: String::from(BACKEND_HEALTH_URL),
         backend_dir: backend_dir.display().to_string(),
+        backend_dir_exists,
         python_path: python_path.display().to_string(),
+        python_exists,
         entry_script: entry_script.display().to_string(),
+        entry_exists,
+        launch_ready,
         guidance,
     }
+}
+
+fn wait_for_backend(max_attempts: u32, delay_ms: u64) -> RuntimeStatus {
+    for _ in 0..max_attempts {
+        let status = current_runtime_status();
+        if status.connected {
+            return status;
+        }
+        sleep(Duration::from_millis(delay_ms));
+    }
+
+    current_runtime_status()
 }
 
 #[tauri::command]
@@ -199,6 +239,7 @@ fn launch_backend() -> Result<LaunchResult, String> {
     if status.connected {
         return Ok(LaunchResult {
             started: false,
+            pid: None,
             message: String::from("Backend is already reachable."),
             status,
         });
@@ -223,24 +264,41 @@ fn launch_backend() -> Result<LaunchResult, String> {
     }
 
     let mut command = Command::new(&python_path);
-    command.arg(&entry_script).current_dir(&backend_dir);
+    command
+        .arg(&entry_script)
+        .current_dir(&backend_dir)
+        .stdin(Stdio::null())
+        .stdout(Stdio::null())
+        .stderr(Stdio::null());
 
     #[cfg(target_os = "windows")]
     {
         command.creation_flags(0x08000000);
     }
 
-    command
+    let mut child = command
         .spawn()
         .map_err(|error| format!("Failed to launch backend: {error}"))?;
+    let pid = child.id();
 
-    let refreshed = current_runtime_status();
+    sleep(Duration::from_millis(300));
+    if let Ok(Some(exit_status)) = child.try_wait() {
+        return Ok(LaunchResult {
+            started: false,
+            pid: Some(pid),
+            message: format!("Backend process exited immediately with status {exit_status}."),
+            status: current_runtime_status(),
+        });
+    }
+
+    let refreshed = wait_for_backend(24, 500);
     Ok(LaunchResult {
         started: true,
+        pid: Some(pid),
         message: if refreshed.connected {
-            String::from("Backend launch triggered and health endpoint responded.")
+            format!("Backend launch triggered and health endpoint responded. PID {pid}.")
         } else {
-            String::from("Backend launch triggered. Health endpoint has not responded yet.")
+            format!("Backend launch triggered as PID {pid}, but the health endpoint has not responded yet.")
         },
         status: refreshed,
     })

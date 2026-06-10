@@ -78,6 +78,22 @@ function bridgeLabel(source: ShellSnapshotSource) {
   }
 }
 
+function runtimeHealthLabel(runtimeStatus: DesktopRuntimeStatus | null) {
+  if (!runtimeStatus) {
+    return "Desktop runtime check unavailable";
+  }
+
+  if (runtimeStatus.connected) {
+    return "Backend reachable and snapshot-ready";
+  }
+
+  if (runtimeStatus.launchReady) {
+    return "Launch path is ready, backend is just offline";
+  }
+
+  return "Backend path is incomplete";
+}
+
 function surfaceTitle(activeSurface: SurfaceKey) {
   switch (activeSurface) {
     case "actions":
@@ -189,6 +205,24 @@ export default function App() {
     }
   }
 
+  async function handleRuntimeRefresh() {
+    try {
+      const next = await readRuntimeStatus();
+      if (!next) {
+        return;
+      }
+
+      startTransition(() => {
+        setRuntimeStatus(next);
+        setLaunchFeedback(next.guidance);
+      });
+    } catch (error) {
+      startTransition(() => {
+        setLaunchFeedback(error instanceof Error ? error.message : "Runtime refresh failed");
+      });
+    }
+  }
+
   return (
     <div className="desktop-app">
       <WindowChrome
@@ -220,7 +254,11 @@ export default function App() {
               <div className="desktop-hero__signals">
                 <SignalBadge state={snapshot.state} label="State" detail={stateDetail(snapshot)} />
                 <SignalBadge state="reasoning" label="Bridge" detail={bridgeLabel(bridgeSource)} />
-                <SignalBadge state="acting" label="Scope" detail="Windows and macOS shared shell" />
+                <SignalBadge
+                  state={runtimeStatus?.connected ? "acting" : "approval"}
+                  label="Runtime"
+                  detail={runtimeHealthLabel(runtimeStatus)}
+                />
               </div>
 
               <div className="desktop-hero__meta">
@@ -245,18 +283,35 @@ export default function App() {
                     <span>{launchFeedback}</span>
                   </div>
                   <div className="desktop-runtime-panel__actions">
-                    <button
-                      type="button"
-                      className="desktop-cta-button"
-                      onClick={() => void handleBackendLaunch()}
-                      disabled={launchingBackend || runtimeStatus.connected}
-                    >
-                      {runtimeStatus.connected
-                        ? "Backend connected"
-                        : launchingBackend
-                          ? "Launching backend..."
-                          : "Launch backend"}
-                    </button>
+                    <div className="desktop-runtime-panel__buttons">
+                      <button
+                        type="button"
+                        className="desktop-cta-button"
+                        onClick={() => void handleBackendLaunch()}
+                        disabled={launchingBackend || runtimeStatus.connected || !runtimeStatus.launchReady}
+                      >
+                        {runtimeStatus.connected
+                          ? "Backend connected"
+                          : launchingBackend
+                            ? "Launching backend..."
+                            : "Launch backend"}
+                      </button>
+                      <button
+                        type="button"
+                        className="desktop-secondary-button"
+                        onClick={() => void handleRuntimeRefresh()}
+                      >
+                        Refresh status
+                      </button>
+                    </div>
+                    <div className="desktop-runtime-panel__chips">
+                      <span className={`desktop-chip desktop-chip--${runtimeStatus.health}`}>
+                        {runtimeStatus.health}
+                      </span>
+                      <span className={`desktop-chip desktop-chip--${runtimeStatus.launchReady ? "healthy" : "offline"}`}>
+                        {runtimeStatus.launchReady ? "launch-ready" : "launch-blocked"}
+                      </span>
+                    </div>
                     <div className="desktop-runtime-panel__paths">
                       <span>{runtimeStatus.healthUrl}</span>
                       <span>{runtimeStatus.pythonPath}</span>
@@ -293,10 +348,16 @@ export default function App() {
                 <SettingsList entries={snapshot.settings} />
                 {runtimeStatus ? (
                   <div className="desktop-inline-note">
+                    <strong>Backend root present</strong>
+                    <span>{runtimeStatus.backendDirExists ? "Yes" : "No"}</span>
                     <strong>Backend directory</strong>
                     <span>{runtimeStatus.backendDir}</span>
+                    <strong>Python present</strong>
+                    <span>{runtimeStatus.pythonExists ? "Yes" : "No"}</span>
                     <strong>Entry script</strong>
                     <span>{runtimeStatus.entryScript}</span>
+                    <strong>Entry present</strong>
+                    <span>{runtimeStatus.entryExists ? "Yes" : "No"}</span>
                   </div>
                 ) : null}
               </SectionCard>

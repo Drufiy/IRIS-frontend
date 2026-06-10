@@ -55,6 +55,7 @@ Current bridge progress:
 - Tauri invoke remains as a fallback path when the Python runtime is not attached
 - the shell polls the snapshot contract on an interval so runtime health changes become visible without relaunching
 - the Tauri host can probe backend reachability and attempt a local dev launch using explicit backend path overrides
+- the launch path now distinguishes between missing backend root, missing Python, missing entry script, and a slow-to-start backend
 
 ## D1 Scope
 
