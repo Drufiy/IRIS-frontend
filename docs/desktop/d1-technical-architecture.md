@@ -48,6 +48,12 @@ Near-term bridge plan:
 3. event stream moves through local HTTP or WebSocket
 4. approval, provider, and conversation surfaces subscribe to that state
 
+Current bridge progress:
+
+- the desktop shell now prefers a read-only backend HTTP snapshot endpoint
+- the backend can expose `/health` and `/shell_snapshot`
+- Tauri invoke remains as a fallback path when the Python runtime is not attached
+
 ## D1 Scope
 
 The scaffold must provide:

@@ -2,6 +2,8 @@ import { invoke } from "@tauri-apps/api/core";
 
 import type { DesktopShellSnapshot } from "@iris/types";
 
+const SHELL_SNAPSHOT_URL = "http://127.0.0.1:7790/shell_snapshot";
+
 function isTauriRuntime() {
   return typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
 }
@@ -58,6 +60,15 @@ const browserPreviewSnapshot: DesktopShellSnapshot = {
 };
 
 export async function readShellSnapshot(): Promise<DesktopShellSnapshot> {
+  try {
+    const response = await fetch(SHELL_SNAPSHOT_URL);
+    if (response.ok) {
+      return (await response.json()) as DesktopShellSnapshot;
+    }
+  } catch {
+    // Fall through to Tauri invoke or browser preview fallback.
+  }
+
   if (!isTauriRuntime()) {
     return browserPreviewSnapshot;
   }
