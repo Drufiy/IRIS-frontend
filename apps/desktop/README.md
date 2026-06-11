@@ -28,5 +28,6 @@ $env:IRIS_BACKEND_ENTRY="C:\Iris\main.py"
 Runtime behavior:
 
 - the desktop shell checks `http://127.0.0.1:7790/health`
+- the native Tauri app attempts to start IRIS automatically when the backend path is ready
 - if IRIS is offline but the backend path is valid, the Tauri app can attempt a local dev launch
 - launch readiness is based on backend directory, Python path, and entry script detection

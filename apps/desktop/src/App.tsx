@@ -1,4 +1,4 @@
-import { startTransition, useEffect, useState } from "react";
+import { startTransition, useEffect, useRef, useState } from "react";
 
 import type { DesktopShellSnapshot, SidebarItem, SurfaceKey } from "@iris/types";
 import {
@@ -110,6 +110,7 @@ function surfaceTitle(activeSurface: SurfaceKey) {
 }
 
 export default function App() {
+  const attemptedAutoStart = useRef(false);
   const [snapshot, setSnapshot] = useState<DesktopShellSnapshot>(initialSnapshot);
   const [activeSurface, setActiveSurface] = useState<SurfaceKey>("conversation");
   const [bridgeSource, setBridgeSource] = useState<ShellSnapshotSource>("preview");
@@ -122,6 +123,57 @@ export default function App() {
   useEffect(() => {
     let cancelled = false;
 
+    async function startIris(next: DesktopRuntimeStatus, trigger: "auto" | "manual") {
+      if (cancelled) {
+        return;
+      }
+
+      if (next.connected) {
+        startTransition(() => {
+          setRuntimeStatus(next);
+          setLaunchFeedback("IRIS is already running.");
+        });
+        return;
+      }
+
+      if (!next.launchReady) {
+        startTransition(() => {
+          setRuntimeStatus(next);
+          setLaunchFeedback(next.guidance);
+        });
+        return;
+      }
+
+      setLaunchingBackend(true);
+      try {
+        const result = await launchBackend();
+        if (cancelled) {
+          return;
+        }
+
+        startTransition(() => {
+          setRuntimeStatus(result.status);
+          setLaunchFeedback(
+            trigger === "auto"
+              ? `IRIS start attempted automatically. ${result.message}`
+              : result.message,
+          );
+        });
+      } catch (error) {
+        if (cancelled) {
+          return;
+        }
+
+        startTransition(() => {
+          setLaunchFeedback(error instanceof Error ? error.message : "IRIS start failed");
+        });
+      } finally {
+        if (!cancelled) {
+          setLaunchingBackend(false);
+        }
+      }
+    }
+
     async function refreshRuntimeStatus() {
       try {
         const next = await readRuntimeStatus();
@@ -133,6 +185,11 @@ export default function App() {
           setRuntimeStatus(next);
           setLaunchFeedback(next.guidance);
         });
+
+        if (!attemptedAutoStart.current && !next.connected && next.launchReady) {
+          attemptedAutoStart.current = true;
+          void startIris(next, "auto");
+        }
       } catch (error) {
         if (cancelled) {
           return;
@@ -189,6 +246,11 @@ export default function App() {
   }, []);
 
   async function handleBackendLaunch() {
+    if (!runtimeStatus) {
+      return;
+    }
+
+    attemptedAutoStart.current = true;
     setLaunchingBackend(true);
     try {
       const result = await launchBackend();
@@ -198,7 +260,7 @@ export default function App() {
       });
     } catch (error) {
       startTransition(() => {
-        setLaunchFeedback(error instanceof Error ? error.message : "Backend launch failed");
+        setLaunchFeedback(error instanceof Error ? error.message : "IRIS start failed");
       });
     } finally {
       setLaunchingBackend(false);
@@ -245,9 +307,9 @@ export default function App() {
                 <span className="desktop-kicker">D4 live shell cadence</span>
                 <h1>{surfaceTitle(activeSurface)}</h1>
                 <p>
-                  The shell now refreshes itself against the backend snapshot contract. When the Python runtime is
-                  available, this surface follows real health and state data. When it is not, the app degrades
-                  into Tauri fallback or browser preview instead of failing silently.
+                  Open the native desktop app and IRIS should start itself when the backend path is ready. When the
+                  Python runtime is available, this surface follows real health and state data. When it is not, the
+                  app stays explicit about what is blocked instead of failing silently.
                 </p>
               </div>
 
@@ -279,7 +341,7 @@ export default function App() {
               {runtimeStatus ? (
                 <div className="desktop-runtime-panel">
                   <div className="desktop-runtime-panel__copy">
-                    <strong>Desktop runtime control</strong>
+                    <strong>Start IRIS</strong>
                     <span>{launchFeedback}</span>
                   </div>
                   <div className="desktop-runtime-panel__actions">
@@ -291,10 +353,10 @@ export default function App() {
                         disabled={launchingBackend || runtimeStatus.connected || !runtimeStatus.launchReady}
                       >
                         {runtimeStatus.connected
-                          ? "Backend connected"
+                          ? "IRIS running"
                           : launchingBackend
-                            ? "Launching backend..."
-                            : "Launch backend"}
+                            ? "Starting IRIS..."
+                            : "Start IRIS"}
                       </button>
                       <button
                         type="button"
