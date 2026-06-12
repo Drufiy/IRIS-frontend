@@ -1,0 +1,5 @@
+     Running BeforeDevCommand (`npm run dev`)
+     Running DevCommand (`cargo  run --no-default-features --color always --`)
+        Info Watching C:\IRIS-frontend\apps\desktop\src-tauri for changes...
+[1m[92m    Finished[0m `dev` profile [unoptimized + debuginfo] target(s) in 0.44s
+[1m[92m     Running[0m `target\debug\iris_desktop.exe`
